@@ -1,0 +1,42 @@
+{
+  "name": "bbsc-bot",
+  "version": "1.0.0",
+  "description": "A simple bot for BBSC Discord",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon"
+  },
+  "keywords": [
+    "bot",
+    "BBSC",
+    "discord"
+  ],
+  "author": "Dragoon1010",
+  "license": "ISC",
+  "dependencies": {
+    "@typeit/discord": "2.0.21",
+    "@types/node": "^13.13.4",
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0",
+    "discord.js": "^12.2.0",
+    "dotenv": "8.2.0",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "ts-node": "8.10.1",
+    "@typescript-eslint/parser": "2.30.0",
+    "nodemon": "2.0.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "parser": "@typescript-eslint/parser"
+    }
+  }
+}
