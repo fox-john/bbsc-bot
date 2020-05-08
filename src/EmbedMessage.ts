@@ -20,7 +20,8 @@ class EmbedMessage {
 enum EmbedType {
     NEW_MESSAGE = 'Un nouveau message à été envoyé',
     START_VOICE_CONNECTION = 'Connexion channel vocal',
-    END_VOICE_CONNECTION = 'Déconnexion channel vocal'
+    END_VOICE_CONNECTION = 'Déconnexion channel vocal',
+    HELP_COMMANDS = 'Liste des commandes'
 }
 
 export { EmbedMessage, EmbedType };

@@ -1,3 +1,3 @@
-import { Server } from './Server';
+import { Bot } from './Bot';
 
-const bot = Server.init();
+const bot = Bot.init();

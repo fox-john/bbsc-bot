@@ -1,61 +1,47 @@
 import { VoiceState, User, VoiceChannel, Client, Message, GuildMember, TextChannel } from "discord.js";
-import { Server } from './Server';
+import { Bot } from './Bot';
 import { EmbedType } from "./EmbedMessage";
 
 export class EventManager {
-
-    constructor(server: Client) {
-        server.on('ready', () => console.log('server is ready !'));
-        server.on('voiceStateUpdate', (oldState: VoiceState, newState: VoiceState) => this.onUserVoiceChange(oldState, newState));
-        server.on('guildMemberAdd', (member: GuildMember) => this.OnUserJoin(member));
-        server.on('message', (message: Message) => this.onMessage(message));
+    constructor() {
+        Bot.client.on('ready', () => console.log('Bot is ready !'));
+        Bot.client.on('voiceStateUpdate', (oldState: VoiceState, newState: VoiceState) => this.onUserVoiceChange(oldState, newState));
+        Bot.client.on('guildMemberAdd', (member: GuildMember) => this.OnUserJoin(member));
+        Bot.client.on('message', (message: Message) => this.onMessage(message));
     }
 
     async onUserVoiceChange(oldState: VoiceState, newState: VoiceState) {
-        if (await Server.isMine(oldState.id)) return;
+        if (oldState.member.user.bot) return;
 
-        const user: User = await Server.getUserById(oldState.id);
+        const user: User = await Bot.getUserById(oldState.id);
 
         if (oldState.channelID === null && newState.channelID !== null) {
-            const newChannel: VoiceChannel = await Server.getVoiceChannelById(newState.channelID);
+            const newChannel: VoiceChannel = await Bot.getVoiceChannelById(newState.channelID);
 
-            Server.writeLog(EmbedType.START_VOICE_CONNECTION, user, `${user.username} vient de se connecter au channel **${newChannel.name}**.`);
+            Bot.writeLog(EmbedType.START_VOICE_CONNECTION, user, `${user.username} vient de se connecter au channel **${newChannel.name}**.`);
         } else if (oldState.channelID !== null && newState.channelID === null) {
-            const oldChannel: VoiceChannel = await Server.getVoiceChannelById(oldState.channelID);
+            const oldChannel: VoiceChannel = await Bot.getVoiceChannelById(oldState.channelID);
 
-            Server.writeLog(EmbedType.END_VOICE_CONNECTION, user, `${user.username} vient de se déconnecter du channel **${oldChannel.name}**.`);
+            Bot.writeLog(EmbedType.END_VOICE_CONNECTION, user, `${user.username} vient de se déconnecter du channel **${oldChannel.name}**.`);
         }
     }
 
     async onMessage(message: Message) {
-        if (Server.isMine(message.author.id)) return;
+        if (message.author.bot) return;
         
         if (message.content.startsWith('/')) {
             const params = message.content.slice(1).split(/ +/);
 	        const command = params.shift().toLowerCase();
-            this.onCommand(command, params, message);
-        } else {
-            Server.writeLog(EmbedType.NEW_MESSAGE, message.author, message.content);
-        }
-    }
+            
+            if (!Bot.commands.has(command)) return console.error(`Error, command ${command} does'nt exist !`);
 
-    async onCommand(command: string, params: Array<string>, message: Message) {
-        if (command === 'ping') {
-            const fakeIp = `${Math.ceil(Math.random() * 255)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}`;
-
-            message.reply(`Envoi d’une requête 'ping' sur ${message.author.username} [${fakeIp}] avec 32 octets de données :`);
-            setTimeout(() => {
-                
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        message.reply(`Réponse de ${fakeIp} : octets=32 temps=${Math.ceil(Math.random() * 100)} ms TTL=51`);
-                    }, i * 1000);
-                }
-            }, 1000);
-        }
-        if (command === 'clean') {
-            const quantity: number = params[0] ? parseInt(params[0]) : 1;
-            Server.bulkRemoveMessages(message.channel as TextChannel, quantity);
+            try {
+                Bot.commands.get(command).execute(Bot.client, message, params);
+            } catch (error) {
+                console.error(error);
+                const emojiBwa = Bot.client.emojis.cache.find(emoji => emoji.name === 'bwa');
+                message.reply(`Désolé, Il y a eu une erreur en executant cette commande ${emojiBwa}`);
+            }
         }
     }
 
