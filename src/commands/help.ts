@@ -21,10 +21,10 @@ module.exports = {
             '**/setvolume [volume: 1 > 10]**: Définir le volume du bot';
         
         const embedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, user, helpMessage);
-        const emojiThink = client.emojis.cache.find(emoji => emoji.name === 'think');
+        const emojiSmirks = client.emojis.cache.find(emoji => emoji.name === 'smirks');
         const dm = await user.createDM();
 
         dm.send(embedMessage);
-        messageSended.reply(`Liste des commandes envoyé par MP ${emojiThink}`);
+        messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
 	}
 };
