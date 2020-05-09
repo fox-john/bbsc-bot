@@ -13,7 +13,6 @@ module.exports = {
         }
 
         const quantity: number = params[0] ? parseInt(params[0]) : 1;
-
         messageSended.channel.bulkDelete(quantity).catch(() => {
             messageSended.channel.send(`Suppression de ${quantity} message(s) En tâche de fond...`);
 
@@ -24,10 +23,10 @@ module.exports = {
                     });
                 });
             }, 3000);
-        }).finally(() => {
-            messageSended.channel.send(`Suppression de ${quantity} message(s) terminé !`);
+        }).finally(async () => {
+            const finishMessage: Message = await messageSended.channel.send(`Suppression de ${quantity} message(s) terminé !`);
             setTimeout(() => {
-                messageSended.channel.bulkDelete(1);
+                finishMessage.delete();
              }, 3000);
         });
     }

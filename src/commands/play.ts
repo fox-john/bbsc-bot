@@ -23,6 +23,7 @@ module.exports = {
 
             if (varMap.has('t') || varMap.has('start')) {
                 timecode = varMap.has('t') ? parseInt(varMap.get('t')) : parseInt(varMap.get('start'));
+                console.log(timecode);
             }
 
             if (!ytdl.validateURL(query[0]) && varMap.has('v')) {
