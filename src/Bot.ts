@@ -35,12 +35,12 @@ export class Bot extends Client {
         new EventManager(this.client);
     };
 
-    static async getUserById(userId): Promise<User> {
-        return await this.client.users.fetch(userId);
+    static getUserById(userId): Promise<User> {
+        return this.client.users.fetch(userId);
     }
 
     static async getVoiceChannelById(channelId): Promise<VoiceChannel> {
-        return await this.client.channels.fetch(channelId) as VoiceChannel;
+        return this.client.channels.fetch(channelId) as unknown as VoiceChannel;
     }
 
     static async writeLog(type: EmbedType, user: User, message: String = '') {

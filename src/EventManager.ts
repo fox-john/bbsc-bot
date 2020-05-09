@@ -18,23 +18,23 @@ export class EventManager {
         this.eventsList.on('message', (message: Message) => this.onMessage(message));
     }
 
-    async onUserVoiceChange(oldState: VoiceState, newState: VoiceState) {
+    onUserVoiceChange(oldState: VoiceState, newState: VoiceState) {
         if (oldState.member.user.bot) return;
 
-        const user: User = await Bot.getUserById(oldState.id);
-
-        if (oldState.channelID === null && newState.channelID !== null) {
-            const newChannel: VoiceChannel = await Bot.getVoiceChannelById(newState.channelID);
-
-            Bot.writeLog(EmbedType.START_VOICE_CONNECTION, user, `${user.username} vient de se connecter au channel **${newChannel.name}**.`);
-        } else if (oldState.channelID !== null && newState.channelID === null) {
-            const oldChannel: VoiceChannel = await Bot.getVoiceChannelById(oldState.channelID);
-
-            Bot.writeLog(EmbedType.END_VOICE_CONNECTION, user, `${user.username} vient de se déconnecter du channel **${oldChannel.name}**.`);
-        }
+        Bot.getUserById(oldState.id).then((user) => {
+            if (oldState.channelID === null && newState.channelID !== null) {
+                Bot.getVoiceChannelById(newState.channelID).then((channel) => {
+                    Bot.writeLog(EmbedType.START_VOICE_CONNECTION, user, `${user.username} vient de se connecter au channel **${channel.name}**.`);
+                });
+            } else if (oldState.channelID !== null && newState.channelID === null) {
+                Bot.getVoiceChannelById(oldState.channelID).then((channel) => {
+                    Bot.writeLog(EmbedType.END_VOICE_CONNECTION, user, `${user.username} vient de se déconnecter du channel **${channel.name}**.`);
+                });
+            }
+        });
     }
 
-    async onMessage(message: Message) {
+    onMessage(message: Message) {
         if (message.author.bot) return;
 
         if (message.channel instanceof DMChannel) {
@@ -57,7 +57,7 @@ export class EventManager {
         }
     }
 
-    async OnUserJoin(member: GuildMember) {
+    OnUserJoin(member: GuildMember) {
         member.user.bot ? member.roles.add(process.env.BOT_ROLE_ID) : member.roles.add(process.env.NEW_USER_ROLE_ID);
     }
 }

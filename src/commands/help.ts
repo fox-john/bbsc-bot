@@ -7,9 +7,10 @@ module.exports = {
     description: 'Get command list',
     args: false,
 
-    async execute(messageSended: Message) {
+    execute(messageSended: Message) {
         const user: User = messageSended.author;
-        let helpMessage: string = ''; 
+        let helpMessage: string = '';
+
         if (messageSended.member.hasPermission('ADMINISTRATOR')) {
             helpMessage += '**Admin:** \n';
             helpMessage += '**/clean [quantité]**: Suppprimer les X derniers messages \n\n';
@@ -24,9 +25,9 @@ module.exports = {
         
         const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, user, helpMessage);
         const emojiSmirks: GuildEmoji = Bot.client.emojis.cache.find(emoji => emoji.name === 'smirks');
-        const dm: DMChannel = await user.createDM();
-
-        dm.send(embedMessage);
-        messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
+        user.createDM().then((dm) => {
+            dm.send(embedMessage);
+            messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
+        });
     }
 };

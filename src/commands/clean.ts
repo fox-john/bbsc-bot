@@ -1,5 +1,5 @@
 import { Bot } from '../Bot';
-import { Message, GuildEmoji } from 'discord.js';
+import { Message, GuildEmoji, TextChannel } from 'discord.js';
 
 module.exports = {
     name: 'clean',
@@ -13,21 +13,40 @@ module.exports = {
         }
 
         const quantity: number = params[0] ? parseInt(params[0]) : 1;
-        messageSended.channel.bulkDelete(quantity).catch(() => {
-            messageSended.channel.send(`Suppression de ${quantity} message(s) En tâche de fond...`);
 
-            setTimeout(() => {
-                messageSended.channel.messages.fetch({ limit: quantity }).then((messages) => {
-                    messages.forEach((message) => {
-                        messageSended.channel.messages.delete(message);
-                    });
+        if (quantity > 100) {
+            return messageSended.reply('Vous ne pouvez pas supprimer plus de 100 messages à la fois !').then((message) => {
+                setTimeout(() => {
+                    message.delete();
+                }, 3000);
+            })
+        }
+
+        const channel: TextChannel = messageSended.channel as TextChannel;
+        const messagesToDelete: Array<Message> = [];
+
+        channel.send(`Suppression de ${quantity} message(s) En cours...`).then(() => {
+            channel.messages.fetch({ limit: quantity }).then((messages) => {
+                messages.forEach((message) => {
+                    if (!message.pinned) {
+                        messagesToDelete.push(message);
+                    }
                 });
-            }, 3000);
-        }).finally(async () => {
-            const finishMessage: Message = await messageSended.channel.send(`Suppression de ${quantity} message(s) terminé !`);
-            setTimeout(() => {
-                finishMessage.delete();
-             }, 3000);
-        });
+    
+                channel.bulkDelete(messagesToDelete).catch(() => {
+                    messagesToDelete.forEach((message) => {
+                        if (!message.deleted) {
+                            message.delete();
+                        }
+                    })
+                }).finally(() => {
+                    channel.send(`Suppression de ${quantity} message(s) terminé !`).then((deleteMessage) => {
+                        setTimeout(() => {
+                            deleteMessage.delete();
+                        }, 3000);
+                    });
+                })
+            });
+        })
     }
 };
