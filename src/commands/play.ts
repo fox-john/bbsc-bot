@@ -7,15 +7,15 @@ module.exports = {
 	description: 'play sound from youtube',
     args: true,
 
-	async execute(client: Bot, messageSended: Message, params: Array<string>) {
+	async execute(messageSended: Message, params: Array<string>) {
         const query: Array<string> = params[0] ? params[0].split('?') : null;
-        let timecode = 0;
+        let timecode: number = 0;
         if (query[1]) {
-            const vars = query[1].split('&');
+            const vars: Array<string> = query[1].split('&');
             const varMap: Map<string, string> = new Map();
 
             vars.forEach((singleVar) => {
-                const currentVar = singleVar.split('=');
+                const currentVar: Array<string> = singleVar.split('=');
                 varMap.set(currentVar[0], currentVar[1]);
             });
 
@@ -25,7 +25,7 @@ module.exports = {
         }
         
         if (Bot.currentVoiceConnection !== null) {
-            await Bot.commands.get('stop').execute(client);
+            await Bot.commands.get('stop').execute(Bot.client);
         }
 
         if (query[0] !== null && ytdl.validateURL(query[0])) {

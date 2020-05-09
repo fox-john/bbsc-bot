@@ -5,7 +5,7 @@ module.exports = {
 	description: 'stop playing sound',
     args: true,
 
-	execute(client: Bot) {
+	execute() {
 		if (Bot.voiceConnectionDispatcher !== null) {
             Bot.voiceConnectionDispatcher.destroy();
         }

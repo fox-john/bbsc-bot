@@ -48,7 +48,7 @@ export class Bot extends Client {
             this.logChannel = await this.client.channels.fetch(process.env.LOG_CHANNEL_ID) as unknown as TextChannel;
         }
 
-        const embedMessage = new EmbedMessage(type, user, message);
+        const embedMessage: EmbedMessage = new EmbedMessage(type, user, message);
 
         this.logChannel.send(embedMessage);
     }

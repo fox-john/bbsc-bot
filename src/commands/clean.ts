@@ -1,14 +1,14 @@
 import { Bot } from '../Bot';
-import { Message } from 'discord.js';
+import { Message, GuildEmoji } from 'discord.js';
 
 module.exports = {
 	name: 'clean',
 	description: 'clean messages from chat',
     args: true,
 
-	execute(client: Bot, messageSended: Message, params: Array<string>) {
+	execute(messageSended: Message, params: Array<string>) {
         if (!messageSended.member.hasPermission('ADMINISTRATOR')) {
-            const emojiThink = client.emojis.cache.find(emoji => emoji.name === 'think');
+            const emojiThink: GuildEmoji = Bot.client.emojis.cache.find(emoji => emoji.name === 'think');
             return messageSended.reply(`Tu me prends pour un con ? Tu n\'est pas Administrateur ! ${emojiThink}`);
         }
 
