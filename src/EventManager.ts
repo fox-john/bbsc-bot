@@ -40,7 +40,7 @@ export class EventManager {
             if (!Bot.commands.has(command)) return message.reply('Désolé, cette commande n\'existe pas.');
 
             try {
-                Bot.commands.get(command).execute(Bot.client, message, params);
+                Bot.commands.get(command).execute(message, params);
             } catch (error) {
                 console.error(error);
                 const emojiBwa: GuildEmoji = Bot.client.emojis.cache.find(emoji => emoji.name === 'bwa');
