@@ -1,18 +1,11 @@
 import { Client, User, VoiceChannel, TextChannel, VoiceConnection, StreamDispatcher, Message, Collection } from 'discord.js';
 import { EventManager } from './EventManager';
 import { EmbedMessage, EmbedType,  } from './EmbedMessage';
-import { Script } from 'vm';
-const ytdl = require('ytdl-core');
+
 const fs = require('fs');
 const path = require('path');
 
 require('dotenv').config();
-
-/* - implémenter la commande stop (qui fait également leave le bot)
-- commande help adapté au niveau de privilèges de l'utilisateur
-- prise en compte du timecode
-- Prendre en charge d'autres chose que youtube
-- ne pas dl les musiques/vidéos pour pouvoir les jouer, pcq si tu ne les effaces pas, tu vas vite avoir un pb ^^ */
 
 export class Bot extends Client {
     private static logChannel: TextChannel;

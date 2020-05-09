@@ -1,5 +1,5 @@
 import { Bot } from '../Bot';
-import { Message } from 'discord.js';
+import { Message, User } from 'discord.js';
 import { EmbedType, EmbedMessage } from '../EmbedMessage';
 
 module.exports = {
@@ -8,11 +8,15 @@ module.exports = {
     args: false,
 
 	async execute(client: Bot, messageSended: Message) {
-		const user = messageSended.author;
+		const user: User = messageSended.author;
+        let helpMessage: string = ''; 
+        if (messageSended.member.hasPermission('ADMINISTRATOR')) {
+            helpMessage = '' +
+                '**Admin:**' + '\n' +
+                '**/clean [quantité]**: Suppprimer les X derniers messages' + '\n\n';
+        }
 
-		const helpMessage = '' + 
-            '**Admin:**' + '\n' +
-            '**/clean [quantité]**: Suppprimer les X derniers messages' + '\n' + '\n' +
+		helpMessage += '' + 
             '**Utilisateur:**' + '\n' +
             '**/help**: Recevoir la liste des commandes' + '\n' +
             '**/ping**: Recevoir un ping du bot' + '\n' +
