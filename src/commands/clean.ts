@@ -23,12 +23,12 @@ module.exports = {
                         messageSended.channel.messages.delete(message);
                     });
                 });
-            }, 1500);
+            }, 3000);
         }).finally(() => {
             messageSended.channel.send(`Suppression de ${quantity} message(s) terminé !`);
             setTimeout(() => {
                 messageSended.channel.bulkDelete(1);
-             }, 1500);
+             }, 3000);
         });
     }
 };

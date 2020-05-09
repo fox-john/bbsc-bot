@@ -3,11 +3,19 @@ import { Bot } from './Bot';
 import { EmbedType } from "./EmbedMessage";
 
 export class EventManager {
-    constructor() {
-        Bot.client.on('ready', () => console.log('Bot is ready !'));
-        Bot.client.on('voiceStateUpdate', (oldState: VoiceState, newState: VoiceState) => this.onUserVoiceChange(oldState, newState));
-        Bot.client.on('guildMemberAdd', (member: GuildMember) => this.OnUserJoin(member));
-        Bot.client.on('message', (message: Message) => this.onMessage(message));
+    private eventsList: Client;
+
+    constructor(eventList: Client) {
+        this.eventsList = eventList;
+
+        this.init();
+    }
+
+    init() {
+        this.eventsList.on('ready', () => console.log('Bot is ready !'));
+        this.eventsList.on('voiceStateUpdate', (oldState: VoiceState, newState: VoiceState) => this.onUserVoiceChange(oldState, newState));
+        this.eventsList.on('guildMemberAdd', (member: GuildMember) => this.OnUserJoin(member));
+        this.eventsList.on('message', (message: Message) => this.onMessage(message));
     }
 
     async onUserVoiceChange(oldState: VoiceState, newState: VoiceState) {
@@ -29,7 +37,7 @@ export class EventManager {
     async onMessage(message: Message) {
         if (message.author.bot) return;
 
-        if (message.channel.type === 'dm') {
+        if (message.channel instanceof DMChannel) {
             return message.reply('Vous ne pouvez pas executer de commande en message privé !');
         }
         

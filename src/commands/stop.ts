@@ -7,7 +7,7 @@ module.exports = {
 
     execute() {
         if (Bot.voiceConnectionDispatcher !== null) {
-            Bot.voiceConnectionDispatcher.destroy();
+            Bot.voiceConnectionDispatcher.end();
         }
 
         if (Bot.currentVoiceConnection !== null) {

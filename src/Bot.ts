@@ -32,7 +32,7 @@ export class Bot extends Client {
             this.commands.set(command.name, command);
         }
 
-        new EventManager();
+        new EventManager(this.client);
     };
 
     static async getUserById(userId): Promise<User> {
