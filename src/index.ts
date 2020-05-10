@@ -1,3 +1,4 @@
 import { Bot } from './Bot';
 
-Bot.init();
+const bot = new Bot();
+bot.login(process.env.TOKEN);

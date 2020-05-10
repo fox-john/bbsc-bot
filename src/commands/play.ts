@@ -7,7 +7,7 @@ module.exports = {
     description: 'play sound from youtube',
     args: true,
 
-    async execute(messageSended: Message, params: Array<string>) {
+    async execute(bot: Bot, messageSended: Message, params: Array<string>) {
         const query: Array<string> = params[0] ? params[0].split('?') : null;
         let timecode: number = 0;
         let videoId;
@@ -32,23 +32,23 @@ module.exports = {
             }
         }
 
-        if (Bot.voiceConnectionDispatcher !== null) {
-            await Bot.voiceConnectionDispatcher.end();
+        if (bot.voiceConnectionDispatcher !== null) {
+            await bot.voiceConnectionDispatcher.end();
         }
 
         if (query[0] !== null && ytdl.validateURL(query[0])) {
-            Bot.currentVoiceConnection = await messageSended.member.voice.channel.join();
+            bot.currentVoiceConnection = await messageSended.member.voice.channel.join();
 
             let stream = ytdl(query[0], {
                 seek: timecode,
                 filter: 'audioonly'
             });
             
-            Bot.voiceConnectionDispatcher = Bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.05 });
+            bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.5 });
             
             if (timecode != 0) {
                 const bufferingMessage = await messageSended.reply('Mise en mémoire tampon de la musique...');
-                Bot.voiceConnectionDispatcher.on('start', async () => {
+                bot.voiceConnectionDispatcher.on('start', async () => {
                     bufferingMessage.delete();
                     
                     const launchMessage = await messageSended.reply(`Lancement de la musique avec le timecode "${timecode}"`);

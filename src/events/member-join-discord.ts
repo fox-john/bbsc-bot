@@ -1,9 +1,10 @@
-import { GuildMember, Client } from "discord.js";
+import { GuildMember } from "discord.js";
+import { Bot } from "../Bot";
 
 module.exports = {
     name: 'guildMemberAdd',
 
-    execute: (client: Client, member: GuildMember) => {
+    execute: (bot: Bot, member: GuildMember) => {
         member.user.bot ? member.roles.add(process.env.BOT_ROLE_ID) : member.roles.add(process.env.NEW_USER_ROLE_ID);
     }
 };

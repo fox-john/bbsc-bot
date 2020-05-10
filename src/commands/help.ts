@@ -1,13 +1,13 @@
-import { Bot } from '../Bot';
-import { Message, User, GuildEmoji, DMChannel } from 'discord.js';
+import { Message, User, GuildEmoji } from 'discord.js';
 import { EmbedType, EmbedMessage } from '../EmbedMessage';
+import { Bot } from '../Bot';
 
 module.exports = {
     name: 'help',
     description: 'Get command list',
     args: false,
 
-    execute(messageSended: Message) {
+    execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
         let helpMessage: string = '';
 
@@ -24,7 +24,8 @@ module.exports = {
         helpMessage += '**/setvolume [volume: 1 > 10]**: Définir le volume du bot';
         
         const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, user, helpMessage);
-        const emojiSmirks: GuildEmoji = Bot.client.emojis.cache.find(emoji => emoji.name === 'smirks');
+        const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
+
         user.createDM().then((dm) => {
             dm.send(embedMessage);
             messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);

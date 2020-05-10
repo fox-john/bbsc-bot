@@ -5,14 +5,14 @@ module.exports = {
     description: 'stop playing sound',
     args: true,
 
-    execute() {
-        if (Bot.voiceConnectionDispatcher !== null) {
-            Bot.voiceConnectionDispatcher.destroy();
+    execute(bot: Bot) {
+        if (bot.voiceConnectionDispatcher !== null) {
+            bot.voiceConnectionDispatcher.destroy();
         }
 
-        if (Bot.currentVoiceConnection !== null) {
-            Bot.currentVoiceConnection.channel.leave();
-            Bot.currentVoiceConnection = null;
+        if (bot.currentVoiceConnection !== null) {
+            bot.currentVoiceConnection.channel.leave();
+            bot.currentVoiceConnection = null;
         }
     },
 };

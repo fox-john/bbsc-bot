@@ -6,7 +6,7 @@ module.exports = {
     description: 'Get ping from bot',
     args: false,
 
-    execute(messageSended: Message) {
+    execute(bot: Bot, messageSended: Message) {
         const fakeIp: string = `${Math.ceil(Math.random() * 255)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}`;
 
         messageSended.reply(`Envoi d’une requête 'ping' sur ${messageSended.author.username} [${fakeIp}] avec 32 octets de données :`);

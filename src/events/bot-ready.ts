@@ -1,9 +1,7 @@
-import { Client } from "discord.js";
-
 module.exports = {
     name: 'ready',
 
-    execute: (client: Client) => {
+    execute: () => {
         console.log('Bot is ready !');
     }
 } 
