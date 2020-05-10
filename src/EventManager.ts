@@ -35,7 +35,7 @@ export class EventManager {
         
         if (message.content.startsWith('/')) {
             const params: Array<string> = message.content.slice(1).split(/ +/);
-	        const command: string = params.shift().toLowerCase();
+            const command: string = params.shift().toLowerCase();
             
             if (!Bot.commands.has(command)) return message.reply('Désolé, cette commande n\'existe pas.');
 

@@ -1,12 +1,12 @@
 import { Bot } from '../Bot';
 
 module.exports = {
-	name: 'stop',
-	description: 'stop playing sound',
+    name: 'stop',
+    description: 'stop playing sound',
     args: true,
 
-	execute() {
-		if (Bot.voiceConnectionDispatcher !== null) {
+    execute() {
+        if (Bot.voiceConnectionDispatcher !== null) {
             Bot.voiceConnectionDispatcher.destroy();
         }
 
@@ -14,5 +14,5 @@ module.exports = {
             Bot.currentVoiceConnection.channel.leave();
             Bot.currentVoiceConnection = null;
         }
-	},
+    },
 };

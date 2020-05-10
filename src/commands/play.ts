@@ -3,11 +3,11 @@ import { Message } from 'discord.js';
 const ytdl = require('ytdl-core');
 
 module.exports = {
-	name: 'play',
-	description: 'play sound from youtube',
+    name: 'play',
+    description: 'play sound from youtube',
     args: true,
 
-	async execute(messageSended: Message, params: Array<string>) {
+    async execute(messageSended: Message, params: Array<string>) {
         const query: Array<string> = params[0] ? params[0].split('?') : null;
         let timecode: number = 0;
         if (query[1]) {
@@ -39,6 +39,6 @@ module.exports = {
               });
         } else {
             messageSended.reply('Aucun lien n\'a été donné, ou le lien ne correspond pas a un lien youtube !');
-        }   
-	}
+        }
+    }
 };

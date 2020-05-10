@@ -2,11 +2,11 @@ import { Bot } from '../Bot';
 import { Message } from 'discord.js';
 
 module.exports = {
-	name: 'ping',
-	description: 'Get ping from bot',
+    name: 'ping',
+    description: 'Get ping from bot',
     args: false,
 
-	execute(messageSended: Message) {
+    execute(messageSended: Message) {
         const fakeIp: string = `${Math.ceil(Math.random() * 255)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}`;
 
         messageSended.reply(`Envoi d’une requête 'ping' sur ${messageSended.author.username} [${fakeIp}] avec 32 octets de données :`);
@@ -18,5 +18,5 @@ module.exports = {
                 }, i * 1000);
             }
         }, 1000);
-	}
+    }
 };

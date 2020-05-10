@@ -3,12 +3,12 @@ import { Message, User, GuildEmoji, DMChannel } from 'discord.js';
 import { EmbedType, EmbedMessage } from '../EmbedMessage';
 
 module.exports = {
-	name: 'help',
-	description: 'Get command list',
+    name: 'help',
+    description: 'Get command list',
     args: false,
 
-	async execute(messageSended: Message) {
-		const user: User = messageSended.author;
+    async execute(messageSended: Message) {
+        const user: User = messageSended.author;
         let helpMessage: string = ''; 
         if (messageSended.member.hasPermission('ADMINISTRATOR')) {
             helpMessage += '**Admin:** \n';
@@ -28,5 +28,5 @@ module.exports = {
 
         dm.send(embedMessage);
         messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
-	}
+    }
 };
