@@ -1,29 +1,24 @@
-import { Client, User, VoiceChannel, TextChannel, VoiceConnection, StreamDispatcher, Message, Collection } from 'discord.js';
-import { EventManager } from './EventManager';
-import { EmbedMessage, EmbedType,  } from './EmbedMessage';
+import { Client, User, VoiceChannel, TextChannel, VoiceConnection, StreamDispatcher, Collection } from 'discord.js';
+import { EmbedMessage, EmbedType } from './EmbedMessage';
 
 const fs = require('fs');
 const path = require('path');
 
 require('dotenv').config();
 
-export class Bot extends Client {
+export class Bot {
     private static logChannel: TextChannel;
 
     public static client: Client;
     public static commands: Collection<string, any> = new Collection();
-
     public static currentVoiceConnection: VoiceConnection = null;
     public static voiceConnectionDispatcher: StreamDispatcher = null;
-
-    constructor() {
-        super();
-    }
 
     static init() {
         this.client = new Client();
         this.client.login(process.env.TOKEN);
 
+        // register all commands
         const commandsDir = path.resolve(__dirname, 'commands');
         const commandFiles = fs.readdirSync(commandsDir).filter(file => file.endsWith('.ts'));
 
@@ -32,11 +27,18 @@ export class Bot extends Client {
             this.commands.set(command.name, command);
         }
 
-        new EventManager(this.client);
+        // register all events
+        const eventsDir = path.resolve(__dirname, 'events');
+        const eventFiles = fs.readdirSync(eventsDir).filter(file => file.endsWith('.ts'));
+
+        for (const file of eventFiles) {
+            const event = require(`${eventsDir}/${file}`);
+            this.client.on(event.name, event.execute.bind(null, this.client))
+        }
     };
 
-    static getUserById(userId): Promise<User> {
-        return this.client.users.fetch(userId);
+    static async getUserById(userId): Promise<User> {
+        return await this.client.users.fetch(userId);
     }
 
     static async getVoiceChannelById(channelId): Promise<VoiceChannel> {
