@@ -35,14 +35,6 @@ export class Bot extends Client {
         }
     }
 
-    async getUserById(userId): Promise<User> {
-        return await this.users.fetch(userId);
-    }
-
-    async getVoiceChannelById(channelId): Promise<VoiceChannel> {
-        return this.channels.fetch(channelId) as unknown as VoiceChannel;
-    }
-
     async writeLog(type: EmbedType, user: User, message: String = '') {
         if (typeof this.logChannel === 'undefined') {
             this.logChannel = await this.channels.fetch(process.env.LOG_CHANNEL_ID) as unknown as TextChannel;
