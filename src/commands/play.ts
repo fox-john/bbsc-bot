@@ -4,6 +4,7 @@ const ytdl = require('discord-ytdl-core');
 
 module.exports = {
     name: 'play',
+    alias: ['join'],
     description: 'play sound from youtube',
     args: true,
 

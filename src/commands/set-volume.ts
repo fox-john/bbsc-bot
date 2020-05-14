@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 
 module.exports = {
     name: 'setvolume',
+    alias: ['volume'],
     description: 'Set play volume',
     args: true,
 

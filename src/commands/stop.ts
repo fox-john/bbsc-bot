@@ -2,6 +2,7 @@ import { Bot } from '../Bot';
 
 module.exports = {
     name: 'stop',
+    alias: [],
     description: 'stop playing sound',
     args: true,
 

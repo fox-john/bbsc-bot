@@ -1,0 +1,28 @@
+import { Message } from 'discord.js';
+import { EmbedMessage } from '../../EmbedMessage';
+import { Bot } from '../../Bot';
+import { Igdb, IgdbSearchType } from '../../Igdb';
+
+module.exports = {
+    name: 'igdb',
+    alias: [],
+    description: 'Get comming soon games',
+    args: false,
+
+    async execute(bot: Bot, messageSended: Message, params: Array<string>) {
+        const igdbRequest = new Igdb();
+        const searchtype = params[0] ? params[0] : IgdbSearchType.COMMING_SOON;
+        const searchPage = params[1] ? parseInt(params[1]) : 1;
+        const igdbResponse: Array<any> = await igdbRequest.search(searchtype, searchPage);
+        let finalText: string = '';
+
+        igdbResponse.forEach((game) => {
+            const date = new Date(game.first_release_date * 1000);
+            const dateFormatted: string = `${('0' + date.getDate()).slice(-2)}/${('0' + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()}`
+            finalText += `**[${dateFormatted}]**: ${game.name}  \n`;
+        });
+        const embedMessage: EmbedMessage = new EmbedMessage('Sortie récente de jeu (triés par hype)', finalText);
+
+        messageSended.reply(embedMessage);
+    }
+};

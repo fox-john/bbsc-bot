@@ -1,16 +1,19 @@
 import { MessageEmbed, User } from "discord.js";
+import { isNull } from "util";
 
 class EmbedMessage {
-    constructor(type: EmbedType, user: User, message?: String) {
+    constructor(type: string | EmbedType, message: String, user: User = null) {
         const embedMessage: MessageEmbed = new MessageEmbed();
         const date: Date = new Date();
-        const dateFormatted: string = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        const avatar: string = user.avatar !== null ? user.avatarURL() : user.defaultAvatarURL;
+        const dateFormatted: string = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`        
         const color: string = type === EmbedType.END_VOICE_CONNECTION ? '#C10000' : '#00D315';
-
+        
+        if (!isNull(user)) {
+            const avatar: string = user.avatar !== null ? user.avatarURL() : user.defaultAvatarURL;
+            embedMessage.setAuthor(user.username, avatar);
+        }
 
         embedMessage.setColor(color);
-        embedMessage.setAuthor(user.username, avatar);
         embedMessage.setTitle(type);
         embedMessage.setDescription(message);
         embedMessage.setFooter(`Envoyé le ${dateFormatted}`)

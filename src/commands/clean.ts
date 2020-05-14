@@ -3,6 +3,7 @@ import { Bot } from '../Bot';
 
 module.exports = {
     name: 'clean',
+    alias: [],
     description: 'clean messages from chat',
     args: true,
 
@@ -12,7 +13,7 @@ module.exports = {
             return messageSended.reply(`Tu me prends pour un con ? Tu n\'est pas Administrateur ! ${emojiThink}`);
         }
 
-        const quantity: number = params[0] ? parseInt(params[0]) : 1;
+        const quantity: number = params[0] ? parseInt(params[0]) : 3;
 
         if (quantity > 100) {
             return messageSended.reply('Vous ne pouvez pas supprimer plus de 100 messages à la fois !').then((message) => {

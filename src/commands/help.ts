@@ -4,6 +4,7 @@ import { Bot } from '../Bot';
 
 module.exports = {
     name: 'help',
+    alias: [],
     description: 'Get command list',
     args: false,
 
@@ -23,7 +24,7 @@ module.exports = {
         helpMessage += '**/stop**: Demander au bot de quitter le channel vocal \n';
         helpMessage += '**/setvolume [volume: 1 > 10]**: Définir le volume du bot';
         
-        const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, user, helpMessage);
+        const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, helpMessage, user);
         const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
 
         user.createDM().then((dm) => {

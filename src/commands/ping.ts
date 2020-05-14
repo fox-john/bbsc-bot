@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 
 module.exports = {
     name: 'ping',
+    alias: ['pong'],
     description: 'Get ping from bot',
     args: false,
 
