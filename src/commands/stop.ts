@@ -3,7 +3,8 @@ import { Bot } from '../Bot';
 module.exports = {
     name: 'stop',
     alias: [],
-    description: 'stop playing sound',
+    description: '**/stop**: Demander au bot de quitter le channel vocal',
+    isAdmin: false,
     args: true,
 
     execute(bot: Bot) {

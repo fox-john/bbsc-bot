@@ -6,7 +6,7 @@ import { Igdb, IgdbSearchType } from '../../Igdb';
 module.exports = {
     name: 'igdb',
     alias: [],
-    description: 'Get comming soon games',
+    description: '**/igdb**: Voir la liste des jeux qui sortent bientôt',
     args: false,
 
     async execute(bot: Bot, messageSended: Message, params: Array<string>) {

@@ -4,7 +4,8 @@ import { Bot } from '../Bot';
 module.exports = {
     name: 'clean',
     alias: [],
-    description: 'clean messages from chat',
+    description: '**/clean [quantité]**: Suppprimer les X derniers messages',
+    isAdmin: true,
     args: true,
 
     execute(bot: Bot, messageSended: Message, params: Array<string>) {

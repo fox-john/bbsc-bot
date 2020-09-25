@@ -4,7 +4,8 @@ import { Message } from 'discord.js';
 module.exports = {
     name: 'setvolume',
     alias: ['volume'],
-    description: 'Set play volume',
+    description: '**/setvolume [volume: 1 > 10]**: Définir le volume du bot',
+    isAdmin: false,
     args: true,
 
     execute(bot: Bot, messageSended: Message, params: Array<string>) {

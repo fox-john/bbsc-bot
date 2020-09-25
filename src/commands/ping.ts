@@ -4,7 +4,8 @@ import { Message } from 'discord.js';
 module.exports = {
     name: 'ping',
     alias: ['pong'],
-    description: 'Get ping from bot',
+    description: '**/ping**: Recevoir un ping du bot',
+    isAdmin: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {

@@ -1,35 +1,56 @@
 import { Message, User, GuildEmoji } from 'discord.js';
 import { EmbedType, EmbedMessage } from '../EmbedMessage';
 import { Bot } from '../Bot';
+const path = require('path');
+const glob = require('glob');
+
 
 module.exports = {
     name: 'help',
     alias: [],
-    description: 'Get command list',
+    description: '**/help**: Recevoir la liste des commandes',
+    isAdmin: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
         let helpMessage: string = '';
+        let commandsList: Array<Array<string>> = [[], []];
 
-        if (messageSended.member.hasPermission('ADMINISTRATOR')) {
-            helpMessage += '**Admin:** \n';
-            helpMessage += '**/clean [quantité]**: Suppprimer les X derniers messages \n\n';
-        }
+        // get all commands
+        const commandsDir = path.resolve(__dirname, './');
 
-        helpMessage += '**Utilisateur:** \n';
-        helpMessage += '**/help**: Recevoir la liste des commandes \n';
-        helpMessage += '**/ping**: Recevoir un ping du bot \n';
-        helpMessage += '**/play [youtube url]**: Demander au bot de lire une vidéo youtube \n';
-        helpMessage += '**/stop**: Demander au bot de quitter le channel vocal \n';
-        helpMessage += '**/setvolume [volume: 1 > 10]**: Définir le volume du bot';
-        
-        const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, helpMessage, user);
-        const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
+        glob(`${commandsDir}/**/*.ts`, function(err, commandFiles) {
+            commandFiles.forEach((file) => {
+                const command = require(file);
+                const helpText = `${command.description}\n`
 
-        user.createDM().then((dm) => {
-            dm.send(embedMessage);
-            messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
+                if (command.isAdmin) commandsList[0].push(helpText);
+                else commandsList[1].push(helpText);
+            });
+
+            if (messageSended.member.hasPermission('ADMINISTRATOR')) {
+                helpMessage += '**Administrateur:** \n';
+
+                commandsList[0].forEach(commandText => {
+                    helpMessage += commandText;
+                })
+                helpMessage += '\n';
+            }
+    
+            helpMessage += '**Utilisateur:** \n';
+    
+            commandsList[1].forEach(commandText => {
+                helpMessage += commandText;
+            })
+            
+            const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, helpMessage, user);
+            const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
+    
+            user.createDM().then((dm) => {
+                dm.send(embedMessage);
+                messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
+            });
         });
     }
 };
