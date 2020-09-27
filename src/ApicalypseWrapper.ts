@@ -5,7 +5,8 @@ export class Apicalypse {
         this.data = '';
     }
 
-    fields(fields: string): Apicalypse {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    fields(fields: any): Apicalypse {
         if (fields) {
             let fieldsString = (fields && fields.constructor === Array) ? fields.join(",") : fields;
             fieldsString = fieldsString ? fieldsString.replace(/\s/g, '') : '';
@@ -51,7 +52,8 @@ export class Apicalypse {
         return this;
     }
 
-    where(filters: string): Apicalypse {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    where(filters: any): Apicalypse {
         if (filters) {
             if (filters.constructor === Array) {
                 this.data += `where ${filters.join(' & ')};`;

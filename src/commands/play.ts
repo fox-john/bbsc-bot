@@ -1,6 +1,6 @@
 import { Bot } from '../Bot';
 import { Message } from 'discord.js';
-import ytdl from 'discord-ytdl-core';
+const ytdl = require('discord-ytdl-core');
 
 module.exports = {
     name: 'play',
@@ -28,7 +28,6 @@ module.exports = {
     
                 if (varMap.has('t') || varMap.has('start')) {
                     timecode = varMap.has('t') ? parseInt(varMap.get('t')) : parseInt(varMap.get('start'));
-                    console.log(timecode);
                 }
     
                 if (!ytdl.validateURL(query[0]) && varMap.has('v')) {
