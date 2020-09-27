@@ -1,19 +1,20 @@
 import { Bot } from '../Bot';
 import { Message } from 'discord.js';
-const ytdl = require('discord-ytdl-core');
+import ytdl from 'discord-ytdl-core';
 
 module.exports = {
     name: 'play',
     alias: ['join'],
     description: '**/play [youtube url]**: Demander au bot de lire une vidéo youtube',
     isAdmin: false,
+    isVoiceCommand: true,
     args: true,
 
     async execute(bot: Bot, messageSended: Message, params: Array<string>) {
         if (params[0]) {
             const query: Array<string> = params[0] ? params[0].split('?') : null;
 
-            let timecode: number = 0;
+            let timecode = 0;
             let videoId;
     
             if (query[1]) {
@@ -43,7 +44,7 @@ module.exports = {
             if (query[0] !== null && ytdl.validateURL(query[0])) {
                 bot.currentVoiceConnection = await messageSended.member.voice.channel.join();
     
-                let stream = ytdl(query[0], {
+                const stream = ytdl(query[0], {
                     seek: timecode,
                     filter: 'audioonly'
                 });

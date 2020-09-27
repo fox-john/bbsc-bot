@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { Apicalypse } from './ApicalypseWrapper';
 
 export class Igdb {
@@ -20,10 +20,10 @@ export class Igdb {
         });
     }
 
-    public search(searchType: string, page: number): Promise<Array<Object>> {
+    public search(searchType: string, page: number): Promise<Array<any>> {
         let query = new Apicalypse();
-        let gamesPerPage = 10;
-        let currentPage = (page - 1) * gamesPerPage;
+        const gamesPerPage = 10;
+        const currentPage = (page - 1) * gamesPerPage;
 
         if (searchType === IgdbSearchType.COMMING_SOON) {
             const timestamp = Math.floor(Date.now() / 1000);
@@ -33,7 +33,7 @@ export class Igdb {
         return this.rawRequest(query);
     }
 
-    private async rawRequest(query): Promise<Array<Object>> {
+    private async rawRequest(query): Promise<Array<any>> {
         return await this.igdb(`/games`, query).then((response) => {
             return response.data;
         }).catch((error) => {

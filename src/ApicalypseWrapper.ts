@@ -5,7 +5,7 @@ export class Apicalypse {
         this.data = '';
     }
 
-    fields(fields) {
+    fields(fields: string): Apicalypse {
         if (fields) {
             let fieldsString = (fields && fields.constructor === Array) ? fields.join(",") : fields;
             fieldsString = fieldsString ? fieldsString.replace(/\s/g, '') : '';
@@ -15,7 +15,7 @@ export class Apicalypse {
         return this;
     }
 
-    sort(field, direction) {
+    sort(field: string, direction: string): Apicalypse {
         if (field) {
             if (field.toLowerCase().endsWith(' desc') || field.toLowerCase().endsWith(' asc')) {
                 this.data += `sort ${field};`;
@@ -27,7 +27,7 @@ export class Apicalypse {
         return this;
     }
 
-    limit(limit) {
+    limit(limit: number): Apicalypse {
         if (limit) {
             this.data += `limit ${limit};`;
         }
@@ -35,7 +35,7 @@ export class Apicalypse {
         return this;
     }
 
-    offset(offset) {
+    offset(offset: number): Apicalypse {
         if (offset) {
             this.data += `offset ${offset};`;
         }
@@ -43,7 +43,7 @@ export class Apicalypse {
         return this;
     }
 
-    search(search) {
+    search(search: string): Apicalypse {
         if (search) {
             this.data += `search '${search}';`;
         }
@@ -51,7 +51,7 @@ export class Apicalypse {
         return this;
     }
 
-    where(filters) {
+    where(filters: string): Apicalypse {
         if (filters) {
             if (filters.constructor === Array) {
                 this.data += `where ${filters.join(' & ')};`;

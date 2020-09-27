@@ -6,6 +6,7 @@ module.exports = {
     alias: ['volume'],
     description: '**/setvolume [volume: 1 > 10]**: Définir le volume du bot',
     isAdmin: false,
+    isVoiceCommand: true,
     args: true,
 
     execute(bot: Bot, messageSended: Message, params: Array<string>) {

@@ -6,12 +6,13 @@ module.exports = {
     alias: ['pong'],
     description: '**/ping**: Recevoir un ping du bot',
     isAdmin: false,
+    isVoiceCommand: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {
-        const fakeIp: string = `${Math.ceil(Math.random() * 255)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}`;
+        const fakeIp = `${Math.ceil(Math.random() * 255)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}.${Math.ceil(Math.random() * 100)}`;
 
-        messageSended.reply(`Envoi d’une requête 'ping' sur ${messageSended.author.username} [${fakeIp}] avec 32 octets de données :`);
+        messageSended.reply(`Envoi d’une requête 'ping' sur ${messageSended.author.username} [${fakeIp}] avec 32 octets de données :`);
         setTimeout(() => {
             
             for (let i = 0; i < 4; i++) {

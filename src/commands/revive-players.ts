@@ -6,6 +6,7 @@ module.exports = {
     alias: ['revive'],
     description: '**/revive**: Enlever tout les joueurs du groupe "Mort Among Us"',
     isAdmin: true,
+    isVoiceCommand: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {

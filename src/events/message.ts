@@ -1,4 +1,4 @@
-import { Message, GuildEmoji, DMChannel, Client } from "discord.js";
+import { Message, GuildEmoji, DMChannel } from "discord.js";
 import { Bot } from "../Bot";
 
 module.exports = {
@@ -20,10 +20,20 @@ module.exports = {
             if (!command) return message.reply('Désolé, cette commande n\'existe pas.');
 
             try {
+                if (command.isAdmin && !message.member.hasPermission('ADMINISTRATOR')) {
+                    const emojiThink: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'think');
+                    return message.reply(`Vous devez être administrateur pour utiliser cette commande ${emojiThink}`);
+                }
+
+                if (command.isVoiceCommand && !message.member.voice.channelID) {
+                    const emojiThink: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'think');
+                    return message.reply(`Vous devez être connecté à un canal vocal pour utiliser cette commande ${emojiThink}`);
+                }
+
                 command.execute(bot, message, params);
             } catch (error) {
                 console.error(error);
-                const emojiBwa: GuildEmoji = this.client.emojis.cache.find(emoji => emoji.name === 'bwa');
+                const emojiBwa: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'bwa');
                 message.reply(`Désolé, Il y a eu une erreur en executant cette commande ${emojiBwa}`);
             }
         }

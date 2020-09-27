@@ -10,12 +10,13 @@ module.exports = {
     alias: [],
     description: '**/help**: Recevoir la liste des commandes',
     isAdmin: false,
+    isVoiceCommand: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
-        let helpMessage: string = '';
-        let commandsList: Array<Array<string>> = [[], []];
+        let helpMessage = '';
+        const commandsList: Array<Array<string>> = [[], []];
 
         // get all commands
         const commandsDir = path.resolve(__dirname, './');

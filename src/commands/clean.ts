@@ -6,14 +6,10 @@ module.exports = {
     alias: [],
     description: '**/clean [quantité]**: Suppprimer les X derniers messages',
     isAdmin: true,
+    isVoiceCommand: false,
     args: true,
 
     execute(bot: Bot, messageSended: Message, params: Array<string>) {
-        if (!messageSended.member.hasPermission('ADMINISTRATOR')) {
-            const emojiThink: GuildEmoji = this.client.emojis.cache.find(emoji => emoji.name === 'think');
-            return messageSended.reply(`Tu me prends pour un con ? Tu n\'est pas Administrateur ! ${emojiThink}`);
-        }
-
         const quantity: number = params[0] ? parseInt(params[0]) : 3;
 
         if (quantity > 100) {

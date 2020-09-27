@@ -1,4 +1,4 @@
-import { GuildMember, VoiceChannel, Role } from "discord.js";
+import { GuildMember, Role } from "discord.js";
 import { Bot } from "../Bot";
 
 module.exports = {

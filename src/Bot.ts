@@ -18,12 +18,11 @@ export class Bot extends Client {
 
         // register all commands
         const commandsDir = path.resolve(__dirname, 'commands');
-        let self = this;
 
-        glob(`${commandsDir}/**/*.ts`, function(err, commandFiles) {
+        glob(`${commandsDir}/**/*.ts`, (err, commandFiles) => {
             commandFiles.forEach((file) => {
                 const command = require(file);
-                self.commands.set(command.name, command);
+                this.commands.set(command.name, command);
             })
         });
 
@@ -37,7 +36,7 @@ export class Bot extends Client {
         }
     }
 
-    async writeLog(type: EmbedType, user: User, message: String = '') {
+    async writeLog(type: EmbedType, user: User, message = ''): Promise<void> {
         if (typeof this.logChannel === 'undefined') {
             this.logChannel = await this.channels.fetch(process.env.LOG_CHANNEL_ID) as unknown as TextChannel;
         }
