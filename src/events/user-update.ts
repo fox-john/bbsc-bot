@@ -1,5 +1,6 @@
 import { GuildMember, Role } from "discord.js";
 import { Bot } from "../Bot";
+const path = require('path');
 
 module.exports = {
     name: 'guildMemberUpdate',
@@ -8,6 +9,10 @@ module.exports = {
         const amongUsRole: Role = oldMemberInfos.guild.roles.cache.find(role => role.name === 'Mort Among Us');
 
         if (!oldMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.voice.channel) {
+            if (bot.currentVoiceConnection) {
+                bot.currentVoiceConnection.play(path.resolve(__dirname, '../..', 'static', 'audio', 'unmute.mp3'));
+            }
+    
             newMemberInfos.voice.channel.members.forEach((member: GuildMember) => {
                 if (!member.roles.cache.has(process.env.AMONG_US_ROLE_ID)) {
                     member.voice.setMute(false);

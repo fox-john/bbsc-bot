@@ -11,7 +11,7 @@ module.exports = {
 
     execute(bot: Bot, messageSended: Message, params: Array<string>) {
         const volume: number = params[0] ? parseInt(params[0]) : 0.5;
-        
+
         if (bot.voiceConnectionDispatcher !== null) {
             const finalVolume: number = volume / 100;
 
