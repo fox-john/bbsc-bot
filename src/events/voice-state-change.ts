@@ -1,4 +1,4 @@
-import { VoiceState, VoiceChannel } from "discord.js";
+import { VoiceState, VoiceChannel, GuildMember } from "discord.js";
 import { Bot } from '../Bot';
 import { EmbedType } from "../EmbedMessage";
 
@@ -14,6 +14,18 @@ module.exports = {
         // AMONG US
         if ((!oldState.channelID && newState.channelID) || (oldState.channelID && newState.channelID && oldState.channelID !== newState.channelID)) {
             if (member.roles.cache.has(process.env.AMONG_US_ROLE_ID)) member.roles.remove(process.env.AMONG_US_ROLE_ID);
+
+            if (newState.channelID === process.env.AMONG_US_CHANNEL_ID && !newState.channel.members.has('522189169829871631')) {
+                newState.member.voice.channel.join().then((voiceConnection) => {
+                    bot.currentVoiceConnection = voiceConnection;
+                });
+            }
+
+            if (oldState.channelID && newState.channelID && oldState.channelID !== newState.channelID && oldState.channel.members.array().length === 1 && oldState.channel.members.has('522189169829871631')) {
+                bot.commands.get('stop').execute(bot);
+            }
+        } else if (oldState.channel.members.array().length === 1 && oldState.channel.members.has('522189169829871631')) {
+            bot.commands.get('stop').execute(bot);
         }
 
         if (!oldState.channelID && newState.channelID) {

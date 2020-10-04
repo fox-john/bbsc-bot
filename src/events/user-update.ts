@@ -10,7 +10,7 @@ module.exports = {
 
         if (!oldMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.voice.channel) {
             if (bot.currentVoiceConnection) {
-                bot.currentVoiceConnection.play(path.resolve(__dirname, '../..', 'static', 'audio', 'unmute.mp3'));
+                bot.currentVoiceConnection.play(path.resolve(__dirname, '../../static/audio', 'unmute.mp3'));
             }
     
             newMemberInfos.voice.channel.members.forEach((member: GuildMember) => {

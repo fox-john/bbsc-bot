@@ -11,17 +11,19 @@ module.exports = {
     isVoiceCommand: true,
     args: false,
 
-    execute(bot: Bot, messageSended: Message) {
+    async execute(bot: Bot, messageSended: Message) {
         const currentChannel: VoiceChannel = messageSended.member.voice.channel;
 
         if (bot.currentVoiceConnection) {
-            bot.currentVoiceConnection.play(path.resolve(__dirname, '../..', 'static', 'audio', 'mute.mp3'));
+            bot.currentVoiceConnection.play(path.resolve(__dirname, '../../static/audio', 'mute.mp3'));
         }
 
-        currentChannel.members.forEach((member: GuildMember) => {
+        const membersList = await currentChannel.members;
+        
+        membersList.forEach((member: GuildMember) => {
             if (member.id !== '522189169829871631') {
                 member.voice.setMute(true);
             }
-        })
+        });
     }
 };
