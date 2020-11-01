@@ -1,5 +1,5 @@
 import { Message, GuildEmoji, DMChannel } from "discord.js";
-import { Bot } from "../Bot";
+import { Bot } from "../classes/Bot";
 
 module.exports = {
     name: 'message',

@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
-import { EmbedMessage } from '../../EmbedMessage';
-import { Bot } from '../../Bot';
-import { Igdb, IgdbSearchType } from '../../Igdb';
+import { EmbedMessage } from '../../classes/EmbedMessage';
+import { Bot } from '../../classes/Bot';
+import { Igdb, IgdbSearchType } from '../../classes/Igdb';
 
 module.exports = {
     name: 'igdb',

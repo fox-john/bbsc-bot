@@ -16,16 +16,18 @@
       "typeRoots": [
         // add path to @types
         "@types/node",
+        "node_modules/winston/index.d.ts",
         "node_modules/@types",
         "node_modules/@typescript-eslint",
-        "node_modules/@typeit/discord"
+        "node_modules/@typeit/discord",
       ],
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
       "resolveJsonModule": true,
-      "watch": false
+      "watch": false,
+      "esModuleInterop": true,
     },
-    "include": ["./src/*.*"],
+    "include": ["./src/*.*", "src/classes/Igdb.ts", "src/classes/EmbedMessage.ts", "src/classes/Bot.ts", "src/classes/ApicalypseWrapper.ts"],
     "exclude": [
       "node_modules"
     ]

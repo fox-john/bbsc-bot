@@ -16,6 +16,8 @@
   "author": "Dragoon1010",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "0.3.2",
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@typeit/discord": "2.0.21",
     "@types/node": "^13.13.4",
     "axios": "^0.19.2",
@@ -24,9 +26,14 @@
     "discord.js": "^12.2.0",
     "dotenv": "8.2.0",
     "ffmpeg-static": "^4.2.1",
+    "fluent-ffmpeg": "^2.1.2",
     "glob": "^7.1.6",
+    "ibm-watson": "^5.7.1",
     "opusscript": "0.0.7",
-    "typescript": "^3.8.3"
+    "ovh-winston-ldp": "^0.3.3",
+    "typescript": "^3.8.3",
+    "winston": "^3.3.3",
+    "winston-loki": "^6.0.0-rc.4"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.2.0",
