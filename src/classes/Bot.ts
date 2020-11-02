@@ -19,6 +19,16 @@ export class Bot extends Client {
     constructor() {
         super();
 
+        process.on('unhandledRejection', (error) => {
+            this.logger.log('error', 'Unhandled Rejection: ' + error);
+            console.error(error);
+        });
+
+        process.on('uncaughtException', (error) => {
+            this.logger.log('error', 'Uncaught Exception: ' + error);
+            console.error(error);
+        });
+
         this.logger = new BotLogger().start();
 
         // register all commands
@@ -37,7 +47,8 @@ export class Bot extends Client {
 
         for (const file of eventFiles) {
             const event = require(`${eventsDir}/${file}`);
-            super.on(event.name, event.execute.bind(null, this))
+
+            super.on(event.name, event.execute.bind(null, this));
         }
 
         this.logger.log('info', 'bot has started');

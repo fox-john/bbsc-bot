@@ -7,11 +7,9 @@ module.exports = {
 
     execute: (bot: Bot, oldMemberInfos: GuildMember, newMemberInfos: GuildMember) => {
         const amongUsRole: Role = oldMemberInfos.guild.roles.cache.find(role => role.name === 'Mort Among Us');
-        console.log('user update');
+
         if (!oldMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.voice.channel) {
-            console.log('if user');
             if (bot.currentVoiceConnection) {
-                console.log('unmute update');
                 bot.currentVoiceConnection.play(path.resolve(__dirname, '../../static/audio', 'unmute.mp3'));
             }
     

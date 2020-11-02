@@ -18,8 +18,8 @@ module.exports = {
             if (bot.voiceConnectionDispatcher !== null) {
                 await bot.voiceConnectionDispatcher.end();
             }
-            console.log('mute');
-            bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(path.resolve(__dirname, '../../static/audio', 'mute.mp3'));
+
+            bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(path.resolve(__dirname, '../../../static/audio', 'mute.mp3'));
         }
 
         const membersList = await currentChannel.members;

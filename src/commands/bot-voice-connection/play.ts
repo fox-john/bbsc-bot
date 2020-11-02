@@ -45,6 +45,7 @@ module.exports = {
     
                 const stream = ytdl(query[0], {
                     seek: timecode,
+                    opusEncoded: true,
                     filter: 'audioonly'
                 });
                 

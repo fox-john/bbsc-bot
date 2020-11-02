@@ -26,6 +26,10 @@
       "resolveJsonModule": true,
       "watch": false,
       "esModuleInterop": true,
+      "paths": {
+        "@src/*": ["src/*"],
+        "@static/*": ["static/*"]
+      }
     },
     "include": ["./src/*.*", "src/classes/Igdb.ts", "src/classes/EmbedMessage.ts", "src/classes/Bot.ts", "src/classes/ApicalypseWrapper.ts"],
     "exclude": [
