@@ -1,5 +1,4 @@
 import { MessageEmbed, User } from "discord.js";
-import { isNull } from "util";
 
 class EmbedMessage {
     constructor(type: string | EmbedType, message: string, user: User = null) {
@@ -8,7 +7,7 @@ class EmbedMessage {
         const dateFormatted = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`        
         const color: string = type === EmbedType.END_VOICE_CONNECTION ? '#C10000' : '#00D315';
         
-        if (!isNull(user)) {
+        if (user === null) {
             const avatar: string = user.avatar !== null ? user.avatarURL() : user.defaultAvatarURL;
             embedMessage.setAuthor(user.username, avatar);
         }

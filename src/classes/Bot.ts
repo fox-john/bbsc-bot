@@ -1,6 +1,7 @@
 import { Client, User, VoiceChannel, TextChannel, VoiceConnection, StreamDispatcher, Collection } from 'discord.js';
 import { EmbedMessage, EmbedType } from './EmbedMessage';
 
+const io = require('socket.io')();
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
@@ -51,6 +52,14 @@ export class Bot extends Client {
             super.on(event.name, event.execute.bind(null, this));
         }
 
+/*         io.on('connection', client => console.log(client)); */
+    io.on('connection', (socket) => {
+        socket.on('connectCode', code => console.log(code));
+        socket.on('state', state => console.log(state));
+        socket.on('player', player => console.log(player));
+        socket.on('lobby', lobby => console.log(lobby));
+    });
+    io.listen(8123);
         this.logger.log('info', 'bot has started');
     }
 

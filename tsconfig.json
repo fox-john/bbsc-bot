@@ -26,6 +26,7 @@
       "resolveJsonModule": true,
       "watch": false,
       "esModuleInterop": true,
+      "baseUrl": "src",
       "paths": {
         "@src/*": ["src/*"],
         "@static/*": ["static/*"]
