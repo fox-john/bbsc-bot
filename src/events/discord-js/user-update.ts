@@ -1,6 +1,8 @@
 import { GuildMember, Role } from "discord.js";
-import { Bot } from "../classes/Bot";
+import { Bot } from "../../classes/Bot";
+
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
     name: 'guildMemberUpdate',
@@ -10,7 +12,7 @@ module.exports = {
 
         if (!oldMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.roles.cache.has(amongUsRole.id) && newMemberInfos.voice.channel) {
             if (bot.currentVoiceConnection) {
-                bot.currentVoiceConnection.play(path.resolve(__dirname, '../../static/audio', 'unmute.mp3'));
+                bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../static/audio', 'unmute.ogg')), { type: 'ogg/opus' });
             }
     
             newMemberInfos.voice.channel.members.forEach(async (member: GuildMember) => {

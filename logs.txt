@@ -1,0 +1,43 @@
+code
+BBSC
+// LOBBY 
+game state: LOBBY
+
+// CONNEXION PLAYERS
+player state:
+{"Action":4,"Name":"Albert","IsDead":false,"Disconnected":false,"Color":3}
+player state:
+{"Action":4,"Name":"atchoum","IsDead":false,"Disconnected":false,"Color":4}
+player state:
+{"Action":4,"Name":"gilbert","IsDead":false,"Disconnected":false,"Color":11}
+player state:
+{"Action":4,"Name":"Alinea","IsDead":false,"Disconnected":false,"Color":5}
+player state:
+{"Action":4,"Name":"Orteil","IsDead":false,"Disconnected":false,"Color":0}
+
+
+{"LobbyCode":"ZBQPGF","Region":0}
+
+// GAME LAUNCH
+game state: TASKS
+
+// DISCONNECTED
+player state:
+{"Action":5,"Name":"gilbert","IsDead":false,"Disconnected":true,"Color":11}
+
+// PLAYER KILLED
+player state:
+{"Action":2,"Name":"Orteil","IsDead":true,"Disconnected":false,"Color":0}
+
+// REPORT
+game state: DISCUSS
+
+// EJECTED
+player state:
+{"Action":6,"Name":"atchoum","IsDead":false,"Disconnected":false,"Color":4}
+
+// GAME FINISH
+game state: LOBBY
+
+player state:
+{"Action":2,"Name":"atchoum","IsDead":true,"Disconnected":false,"Color":4}

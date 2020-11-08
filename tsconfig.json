@@ -25,15 +25,8 @@
       "emitDecoratorMetadata": true,
       "resolveJsonModule": true,
       "watch": false,
-      "esModuleInterop": true,
-      "baseUrl": "src",
-      "paths": {
-        "@src/*": ["src/*"],
-        "@static/*": ["static/*"]
-      }
+      "esModuleInterop": true
     },
-    "include": ["./src/*.*", "src/classes/Igdb.ts", "src/classes/EmbedMessage.ts", "src/classes/Bot.ts", "src/classes/ApicalypseWrapper.ts"],
-    "exclude": [
-      "node_modules"
-    ]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
   }

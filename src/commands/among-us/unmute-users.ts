@@ -2,6 +2,7 @@ import { Bot } from '../../classes/Bot';
 import { GuildEmoji, GuildMember, Message, VoiceChannel } from 'discord.js';
 
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
     name: 'unmute-users',
@@ -19,7 +20,7 @@ module.exports = {
                 await bot.voiceConnectionDispatcher.end();
             }
 
-            bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(path.resolve(__dirname, '../../../static/audio', 'unmute.mp3'));
+            bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../../static/audio', 'unmute.ogg')), { type: 'ogg/opus' });
         }
 
         const membersList = await currentChannel.members;

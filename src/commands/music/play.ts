@@ -49,7 +49,7 @@ module.exports = {
                     filter: 'audioonly'
                 });
                 
-                bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.5 });
+                bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.2, highWaterMark: 50 });
                 
                 if (timecode != 0) {
                     const bufferingMessage = await messageSended.reply('Mise en mémoire tampon de la musique...');

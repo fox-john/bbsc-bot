@@ -238,6 +238,13 @@
   resolved "https://registry.yarnpkg.com/@types/async/-/async-3.2.3.tgz#c56f5e0fc02f8b37196f79239cc857e789b97bb4"
   integrity sha512-deXFjLZc1h6SOh3hicVgD+S2EAkhSBGX/vdlD4nTzCjjOFQ+bfNiXocQ21xJjFAUwqaCeyvOQMgrnbg4QEV63A==
 
+"@types/engine.io@*":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@types/engine.io/-/engine.io-3.1.4.tgz#3d9472711d179daa7c95c051e50ad411e18a9bdc"
+  integrity sha512-98rXVukLD6/ozrQ2O80NAlWDGA4INg+tqsEReWJldqyi2fulC9V7Use/n28SWgROXKm6003ycWV4gZHoF8GA6w==
+  dependencies:
+    "@types/node" "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -308,6 +315,14 @@
   version "10.14.22"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.22.tgz#34bcdf6b6cb5fc0db33d24816ad9d3ece22feea4"
   integrity sha512-9taxKC944BqoTVjE+UT3pQH0nHZlTvITwfsOZqyc+R3sfJuxaTtxWjfn1K2UlxyPcKHf0rnaXcVFrS9F9vf0bw==
+
+"@types/socket.io@2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@types/socket.io/-/socket.io-2.1.11.tgz#e0d6759880e5f9818d5297a3328b36641bae996b"
+  integrity sha512-bVprmqPhJMLb9ZCm8g0Xy8kwBFRbnanOWSxzWkDkkIwxTvud5tKMfAJymXX6LQbizUKCS1yima7JM4BeLqjNqA==
+  dependencies:
+    "@types/engine.io" "*"
+    "@types/node" "*"
 
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
@@ -1125,13 +1140,13 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-discord-ytdl-core@4.1.3:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/discord-ytdl-core/-/discord-ytdl-core-4.1.3.tgz#32712c20830ccbfead54043ceb75bafc3a099c91"
-  integrity sha512-ZpxDCriIcqgc2mJsUgxOG8k4b5aHEwTcBOGlfRzIdAfOT6/nGF8v2G6kniWNFJ315LUBxUH2z9AGspuFgjrdWQ==
+discord-ytdl-core@4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/discord-ytdl-core/-/discord-ytdl-core-4.1.5.tgz#e9230954c9c6f8040fd5db990f5b5dc80a11c036"
+  integrity sha512-fsA7nGCP5sN/Ar+NCCgDpaQQDuBxf9z7uxITEm8d58qosKVaVskZ5/N7GOeMSvSX5YZ746N0VO3HLx73QtFlUg==
   dependencies:
     prism-media "^1.2.2"
-    ytdl-core "^3.4.2"
+    ytdl-core "^4.0.3"
 
 discord.js@12.4.1, discord.js@^12.2.0:
   version "12.4.1"
@@ -2245,12 +2260,12 @@ lowercase-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-2.0.0.tgz#2603e78b7b4b0006cbca2fbcc8a3202558ac9479"
   integrity sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==
 
-m3u8stream@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/m3u8stream/-/m3u8stream-0.7.1.tgz#74b01a67ca248ac7bbdc263a65d9d8d2c479a65c"
-  integrity sha512-z6ldnAdhbuWOL6LmMkwptSZGzj+qbRytMKLTbNicwF/bJMjf9U9lqD57RNQUFecvWadEkzy6PDjcNJFFgi19uQ==
+m3u8stream@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/m3u8stream/-/m3u8stream-0.8.0.tgz#025a63358ee32d7652bdc0a93f46078582ec5e96"
+  integrity sha512-vvSjdkBPdDHzVr2M+aIXbnYys4zX6m3UzxMaxBJr1PpE0e/3sawkLD4EEmz/q9hv87bleotR70cOWR3UBMtskw==
   dependencies:
-    miniget "^1.6.1"
+    miniget "^2.0.1"
     sax "^1.2.4"
 
 make-dir@^3.0.0:
@@ -2300,15 +2315,15 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.yarnpkg.com/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
 
-miniget@^1.6.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/miniget/-/miniget-1.7.2.tgz#f95eff50b78d798dddee2460c4aa3c72db1aa23a"
-  integrity sha512-USPNNK2bnHLOplX8BZVMehUkyQizS/DFpBdoH0TS+fM+hQoLNg9tWg4MeY9wE8gfY0pbzmx5UBEODujt3Lz8AA==
-
 miniget@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/miniget/-/miniget-2.0.2.tgz#173ae2375fc2074601adc538544508070329fc3f"
   integrity sha512-rUYQiHXVjisRIuEdvIQxXPsAKp9Gltz5JdLWA8a3c/5265f2bZudg5mGtWcox0HHxkw51v8od/jLsqyYlM8UBw==
+
+miniget@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/miniget/-/miniget-2.1.0.tgz#2dfb9ecb3a9a55d9dc682102f65fca2a06e3f5ca"
+  integrity sha512-fy9x3d/0oOIhkwAms6kgxTYkHwdELhMfgj+9a/aYZpJdTWIIWGta9aXHUtnzUn+LjBmRoTdPRQSi2hkmEvXk3A==
 
 minimatch@^3.0.4:
   version "3.0.4"
@@ -3643,12 +3658,12 @@ yn@3.1.1:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-ytdl-core@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-3.4.2.tgz#0d3d35f54d4f6b1de870b987f3d45e88c64b6a6c"
-  integrity sha512-R6m1XZQK+iXxb9Q9Wo14/K8mti1r4HnKv4zKrbp5FvMG/jDbeV0xQHUHqqDLk+uiDy/VU6fVATm5x2ms0QaF5w==
+ytdl-core@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.0.3.tgz#9772dc6f7f0272534d50f50903022f8502ae44fa"
+  integrity sha512-+pM+EocvdHHTfH3xCr3c41cIm8bD7IE/wv/QKjaO7PwdLaaOMIj7xc/7yWwy9NwUDgIKA1YTotcn0qpQ0FVtMA==
   dependencies:
     html-entities "^1.3.1"
-    m3u8stream "^0.7.1"
-    miniget "^2.0.1"
+    m3u8stream "^0.8.0"
+    miniget "^2.1.0"
     sax "^1.1.3"

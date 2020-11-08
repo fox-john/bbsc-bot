@@ -1,6 +1,6 @@
 import { VoiceState, VoiceChannel, GuildMember, VoiceReceiver } from "discord.js";
-import { Bot } from '../classes/Bot';
-import { EmbedType } from "../classes/EmbedMessage";
+import { Bot } from '../../classes/Bot';
+import { EmbedType } from "../../classes/EmbedMessage";
 const fs = require('fs');
 
 module.exports = {

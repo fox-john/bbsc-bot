@@ -26,6 +26,16 @@ export default class BotLogger {
     }
 
     public start (): Logger {
+        process.on('unhandledRejection', (error) => {
+            this.logger.log('error', 'Unhandled Rejection: ' + error);
+            console.error(error);
+        });
+
+        process.on('uncaughtException', (error) => {
+            this.logger.log('error', 'Uncaught Exception: ' + error);
+            console.error(error);
+        });
+
         this.logger = createLogger(this.options);
 
         if (process.env.NODE_ENV !== 'production') {
