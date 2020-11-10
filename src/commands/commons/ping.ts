@@ -5,6 +5,7 @@ module.exports = {
     name: 'ping',
     alias: ['pong'],
     description: '**/ping**: Recevoir un ping du bot',
+    isInternal: false,
     isAdmin: false,
     isVoiceCommand: false,
     args: false,

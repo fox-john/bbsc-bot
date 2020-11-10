@@ -6,9 +6,6 @@ import PlayerState from '../../enums/among-us/PlayerState';
 import { Bot } from '../Bot';
 import { GuildMember } from 'discord.js';
 import PlayerType from '../../enums/among-us/PlayerType';
-import path from 'path';
-
-const fs = require('fs');
 
 export default class AmongUsGame {
     private bot: Bot;
@@ -21,18 +18,25 @@ export default class AmongUsGame {
 
     public get state(): GameState { return this._state; }
     public set state(value: GameState) { this._state = value; }
-    
+
     public get players():  Map<string, Player> { return this._players; }
     public set players(value:  Map<string, Player>) { this._players = value; }
 
     public launchGame(): void {
         this.state = GameState.MENU;
-        console.log('launchGame');
+        this.bot.logger.log('info', 'AmongUsCapture: game has launched');
     }
 
-    public launchLobby(): void {
+    public async launchLobby(): Promise<void> {
         this.state = GameState.LOBBY;
-        console.log('launchLobby');
+        this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
+
+        this.players.forEach((player) => {
+            player.isDead = PlayerState.ALIVE;
+            player.mute(false);
+        });
+
+        this.bot.logger.log('info', 'AmongUsCapture: Lobby created');
     }
 
     public addPlayer(playerInfos: Record<string, any>, member?: GuildMember): void {
@@ -48,47 +52,34 @@ export default class AmongUsGame {
             });
     
             this.players.set(player.name, player);
-    
-            console.log(`player added: ${player.name}`);
+
+            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.name} added`);
         }
     }
 
     public removePlayer(playerInfos: Record<string, any>): void {
         if (Bot.amongUsGame.players.has(playerInfos.Name)) {
+            this.players.get(playerInfos.Name).mute(false);
             this.players.delete(playerInfos.Name);
-    
-            console.log(`player removed: ${playerInfos.Name}`);
+
+            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.name} removed`);
         }
     }
 
     public async launchParty(): Promise<void> {
         this.state = GameState.TASKS;
-
-        if (this.bot.currentVoiceConnection) {
-            if (this.bot.voiceConnectionDispatcher !== null) {
-                await this.bot.voiceConnectionDispatcher.end();
-            }
-
-            this.bot.voiceConnectionDispatcher = this.bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../static/audio', 'mute.ogg')), { type: 'ogg/opus' });
-        }
+        this.bot.commands.get('play-sound').execute(this.bot, 'mute.ogg');
 
         this.players.forEach(async (player) => {
             player.mute(true);
         });
 
-        console.log('launchParty');
+        this.bot.logger.log('info', 'AmongUsCapture: the game is under party mode');
     }
 
     public async launchDiscussion(): Promise<void> {
         this.state = GameState.DISCUSS;
-
-        if (this.bot.currentVoiceConnection) {
-            if (this.bot.voiceConnectionDispatcher !== null) {
-                await this.bot.voiceConnectionDispatcher.end();
-            }
-
-            this.bot.voiceConnectionDispatcher = this.bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../static/audio', 'mute.ogg')), { type: 'ogg/opus' });
-        }
+        this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
 
         this.players.forEach((player) => {
             if (!player.isDead) {
@@ -96,12 +87,12 @@ export default class AmongUsGame {
             }
         });
 
-        console.log('launchDiscussion');
+        this.bot.logger.log('info', 'AmongUsCapture: the game is under discussion mode');
     }
 
     public killPlayer(playerName: string): void {
         this.players.get(playerName).isDead = PlayerState.DEAD;
 
-        console.log(`player killed: ${playerName}`);
+        this.bot.logger.log('info', `AmongUsCapture: player ${playerName} are killed`);
     }
 }

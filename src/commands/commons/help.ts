@@ -9,6 +9,7 @@ module.exports = {
     name: 'help',
     alias: [],
     description: '**/help**: Recevoir la liste des commandes',
+    isInternal: false,
     isAdmin: false,
     isVoiceCommand: false,
     args: false,
@@ -26,8 +27,10 @@ module.exports = {
                 const command = require(file);
                 const helpText = `${command.description}\n`
 
-                if (command.isAdmin) commandsList[0].push(helpText);
-                else commandsList[1].push(helpText);
+                if (!command.isInternal) {
+                    if (command.isAdmin) commandsList[0].push(helpText);
+                    else commandsList[1].push(helpText);
+                }
             });
 
             if (messageSended.member.hasPermission('ADMINISTRATOR')) {

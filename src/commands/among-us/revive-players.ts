@@ -5,6 +5,7 @@ module.exports = {
     name: 'revive-players',
     alias: ['revive'],
     description: '**/revive**: Enlever tout les joueurs du groupe "Mort Among Us"',
+    isInternal: false,
     isAdmin: true,
     isVoiceCommand: false,
     args: false,

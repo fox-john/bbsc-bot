@@ -5,6 +5,7 @@ module.exports = {
     name: 'clean',
     alias: [],
     description: '**/clean [quantité]**: Suppprimer les X derniers messages',
+    isInternal: false,
     isAdmin: true,
     isVoiceCommand: false,
     args: true,

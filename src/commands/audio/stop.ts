@@ -4,6 +4,7 @@ module.exports = {
     name: 'stop',
     alias: [],
     description: '**/stop**: Demander au bot de quitter le channel vocal',
+    isInternal: false,
     isAdmin: false,
     isVoiceCommand: true,
     args: true,

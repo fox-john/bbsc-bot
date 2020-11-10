@@ -3,9 +3,10 @@ import { Message } from 'discord.js';
 const ytdl = require('discord-ytdl-core');
 
 module.exports = {
-    name: 'play',
-    alias: ['join'],
-    description: '**/play [youtube url]**: Demander au bot de lire une vidéo youtube',
+    name: 'youtube-play',
+    alias: ['youtube-play', 'yplay'],
+    description: '**/youtube-play [youtube url]** or **/yplay [youtube url]**: Demander au bot de lire une vidéo youtube',
+    isInternal: false,
     isAdmin: false,
     isVoiceCommand: true,
     args: true,
