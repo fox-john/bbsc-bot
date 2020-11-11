@@ -29,14 +29,15 @@ export default class AmongUsGame {
 
     public async launchLobby(): Promise<void> {
         this.state = GameState.LOBBY;
+
         this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
 
         this.players.forEach((player) => {
             player.isDead = PlayerState.ALIVE;
             player.mute(false);
-        });
 
-        this.bot.logger.log('info', 'AmongUsCapture: Lobby created');
+            this.bot.logger.log('info', `AmongUsCapture: ${player.name} is unmuted`);
+        });
     }
 
     public addPlayer(playerInfos: Record<string, any>, member?: GuildMember): void {
@@ -50,10 +51,10 @@ export default class AmongUsGame {
                 color: PlayerColor[`${playerInfos.Color}`],
                 disconnected: playerInfos.Disconnected
             });
-    
+
             this.players.set(player.name, player);
 
-            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.name} added`);
+            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.Name} added`);
         }
     }
 
@@ -62,7 +63,7 @@ export default class AmongUsGame {
             this.players.get(playerInfos.Name).mute(false);
             this.players.delete(playerInfos.Name);
 
-            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.name} removed`);
+            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.Name} removed`);
         }
     }
 
@@ -84,6 +85,7 @@ export default class AmongUsGame {
         this.players.forEach((player) => {
             if (!player.isDead) {
                 player.mute(false);
+                this.bot.logger.log('info', `AmongUsCapture: ${player.name} is muted`);
             }
         });
 

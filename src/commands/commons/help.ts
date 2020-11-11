@@ -1,5 +1,5 @@
 import { Message, User, GuildEmoji } from 'discord.js';
-import { EmbedType, EmbedMessage } from '../../classes/EmbedMessage';
+import { EmbedMessage } from '../../classes/EmbedMessage';
 import { Bot } from '../../classes/Bot';
 const path = require('path');
 const glob = require('glob');
@@ -48,7 +48,13 @@ module.exports = {
                 helpMessage += commandText;
             })
             
-            const embedMessage: EmbedMessage = new EmbedMessage(EmbedType.HELP_COMMANDS, helpMessage, user);
+            const embedMessage: EmbedMessage = new EmbedMessage({
+                color: '#006eff',
+                title: 'Liste des commandes',
+                message: helpMessage,
+                user
+            });
+
             const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
     
             user.createDM().then((dm) => {

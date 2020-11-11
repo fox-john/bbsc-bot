@@ -1,6 +1,5 @@
 import { VoiceState, VoiceChannel, GuildMember, VoiceReceiver } from "discord.js";
 import { Bot } from '../../classes/Bot';
-import { EmbedType } from "../../classes/EmbedMessage";
 const fs = require('fs');
 
 module.exports = {
@@ -32,11 +31,11 @@ module.exports = {
         }
 
         if (!oldState.channelID && newState.channelID) {
-            bot.writeLog(EmbedType.START_VOICE_CONNECTION, member.user, `${member.user.username} vient de se connecter au canal **${newChannel.name}**.`);
+            bot.writeLog('info', `${member.user.username} vient de se connecter du canal ${newChannel.name}`);
         } else if (oldState.channelID && !newState.channelID) {
-            bot.writeLog(EmbedType.END_VOICE_CONNECTION, member.user, `${member.user.username} vient de se déconnecter du canal **${oldChannel.name}**.`);
+            bot.writeLog('info', `${member.user.username} vient de se deconnecter du canal ${oldChannel.name}`);
         } else if (oldState.channelID && newState.channelID && oldState.channelID !== newState.channelID) {
-            bot.writeLog(EmbedType.MOVE_VOICE_CONNECTION, member.user, `${member.user.username} vient de se déplacer dans le canal **${newChannel.name}**.`);
+            bot.writeLog('info', `${member.user.username} vient de se deplacer dans le canal ${newChannel.name}`);
         }
     }
 };

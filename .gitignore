@@ -1,4 +1,7 @@
 node_modules
+logs
+
 *-lock.json
 .env
 *.sh
+*.env

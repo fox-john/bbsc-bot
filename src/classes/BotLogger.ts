@@ -2,10 +2,6 @@ import { Logger, format, createLogger, transports } from 'winston';
 import LokiTransport from 'winston-loki';
 
 export default class BotLogger {
-    private level: string;
-    private serviceName: string;
-    private host: string;
-    
     private options: Record<string, any>;
     private logger: Logger;
 
@@ -20,7 +16,8 @@ export default class BotLogger {
                     json: true,
                     labels: { job: 'BBSC-bot' },
                     batching: false
-                })
+                }),
+                new transports.File({ filename: './logs/error.log', level: 'error' })
             ]
         }
     }

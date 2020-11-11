@@ -1,5 +1,4 @@
 import { Bot } from '../../classes/Bot';
-import { EmbedType } from "../../classes/EmbedMessage";
 import PlayerAction from "../../enums/among-us/PlayerAction";
 import { GuildMember } from "discord.js";
 import WebSocketServer from '../../classes/WebSocketServer';

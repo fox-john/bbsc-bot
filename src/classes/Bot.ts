@@ -1,5 +1,4 @@
-import { Client, User, TextChannel, VoiceConnection, StreamDispatcher, Collection, Guild } from 'discord.js';
-import { EmbedMessage, EmbedType } from './EmbedMessage';
+import { Client, VoiceConnection, StreamDispatcher, Collection } from 'discord.js';
 import WebSocketServer from './WebSocketServer';
 
 const fs = require('fs');
@@ -11,9 +10,6 @@ import { Logger } from 'winston';
 import AmongUsGame from './among-us/AmongUsGame';
 
 export class Bot extends Client {
-    private logChannel: TextChannel;
-    private wsServer: WebSocketServer;
-
     public logger: Logger;
 
     public commands: Collection<string, any> = new Collection();
@@ -34,8 +30,6 @@ export class Bot extends Client {
     }
 
     async init (): Promise<void> {
-        this.wsServer = new WebSocketServer(this);
-
         // register all commands
         const commandsDir = path.resolve(__dirname, '..', 'commands');
 
@@ -56,23 +50,14 @@ export class Bot extends Client {
             super.on(event.name, event.execute.bind(null, this));
         }
 
+        new WebSocketServer(this);
+
         this.logger.log('info', 'bot ready');
     }
 
-    async writeLog(type: EmbedType, user: User, message = ''): Promise<void> {
-        if (typeof this.logChannel === 'undefined') {
-            this.logChannel = await this.channels.fetch(process.env.LOG_CHANNEL_ID) as unknown as TextChannel;
-        }
-
-        const embedMessage: EmbedMessage = new EmbedMessage(type, message, user);
+    async writeLog(type: string, message = ''): Promise<void> {
         const cleanedMessage = message.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\*/g,'');
 
-        this.logChannel.send(embedMessage);
-
-        if (type === EmbedType.ERROR) {
-            this.logger.log('error', cleanedMessage);
-        } else {
-            this.logger.log('info', cleanedMessage);
-        }
+        this.logger.log(type, cleanedMessage);
     }
 }
