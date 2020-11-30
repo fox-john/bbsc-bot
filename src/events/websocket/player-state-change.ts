@@ -1,6 +1,6 @@
 import { Bot } from '../../classes/Bot';
 import PlayerAction from "../../enums/among-us/PlayerAction";
-import { GuildMember } from "discord.js";
+import { BitField, GuildMember } from "discord.js";
 import WebSocketServer from '../../classes/WebSocketServer';
 
 module.exports = {
@@ -8,8 +8,7 @@ module.exports = {
 
     execute: (bot: Bot, event: WebSocketServer, params: any) => {
         const playerInfos = JSON.parse(params);
-        const server = bot.guilds.cache.get(process.env.BBSC_GUILD_ID);
-        const member: GuildMember = server.members.cache.find((member) => member.user.username === playerInfos.Name);
+        const member: GuildMember = bot.bbscDiscord.members.cache.find((member) => member.user.username === playerInfos.Name);
 
         switch(parseInt(playerInfos.Action)) {
             case PlayerAction.JOIN:

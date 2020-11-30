@@ -28,16 +28,18 @@ export default class AmongUsGame {
     }
 
     public async launchLobby(): Promise<void> {
-        this.state = GameState.LOBBY;
+        setTimeout(() => {
+            this.state = GameState.LOBBY;
 
-        this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
+            this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
 
-        this.players.forEach((player) => {
-            player.isDead = PlayerState.ALIVE;
-            player.mute(false);
+            this.players.forEach((player) => {
+                player.isDead = PlayerState.ALIVE;
+                player.mute(false);
 
-            this.bot.logger.log('info', `AmongUsCapture: ${player.name} is unmuted`);
-        });
+                this.bot.logger.log('info', `AmongUsCapture: ${player.name} is unmuted`);
+            });
+        }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
 
     public addPlayer(playerInfos: Record<string, any>, member?: GuildMember): void {
@@ -54,7 +56,12 @@ export default class AmongUsGame {
 
             this.players.set(player.name, player);
 
-            this.bot.logger.log('info', `AmongUsCapture: player ${playerInfos.Name} added`);
+            if (player.type === PlayerType.DISCORD) {
+                this.bot.logger.log('info', `AmongUsCapture: Discord player ${playerInfos.Name} added`);
+            } else {
+                this.bot.logger.log('info', `AmongUsCapture: non Discord player ${playerInfos.Name} added`);
+            }
+            
         }
     }
 
@@ -68,28 +75,31 @@ export default class AmongUsGame {
     }
 
     public async launchParty(): Promise<void> {
-        this.state = GameState.TASKS;
-        this.bot.commands.get('play-sound').execute(this.bot, 'mute.ogg');
+        setTimeout(() => {
+            this.state = GameState.TASKS;
+            this.bot.commands.get('play-sound').execute(this.bot, 'mute.ogg');
 
-        this.players.forEach(async (player) => {
-            player.mute(true);
-        });
+            this.bot.logger.log('info', 'AmongUsCapture: the game is under party mode');
 
-        this.bot.logger.log('info', 'AmongUsCapture: the game is under party mode');
+            this.players.forEach(async (player) => {
+                player.mute(true);
+                this.bot.logger.log('info', `AmongUsCapture: ${player.name} is muted`);
+            });
+        }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
 
     public async launchDiscussion(): Promise<void> {
         this.state = GameState.DISCUSS;
         this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
 
+        this.bot.logger.log('info', 'AmongUsCapture: the game is under discussion mode');
+
         this.players.forEach((player) => {
             if (!player.isDead) {
                 player.mute(false);
-                this.bot.logger.log('info', `AmongUsCapture: ${player.name} is muted`);
+                this.bot.logger.log('info', `AmongUsCapture: ${player.name} is unmuted`);
             }
         });
-
-        this.bot.logger.log('info', 'AmongUsCapture: the game is under discussion mode');
     }
 
     public killPlayer(playerName: string): void {

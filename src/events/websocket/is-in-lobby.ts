@@ -4,6 +4,6 @@ module.exports = {
     name: 'lobby',
 
     execute: (bot: Bot, event: WebSocketServer, params: any) => {
-        // console.log(params);
+        //console.log(params);
     }
 }

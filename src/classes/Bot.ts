@@ -1,4 +1,4 @@
-import { Client, VoiceConnection, StreamDispatcher, Collection } from 'discord.js';
+import { Client, VoiceConnection, StreamDispatcher, Collection, Guild } from 'discord.js';
 import WebSocketServer from './WebSocketServer';
 
 const fs = require('fs');
@@ -13,7 +13,7 @@ export class Bot extends Client {
     public logger: Logger;
 
     public commands: Collection<string, any> = new Collection();
-
+    public bbscDiscord: Guild;
     public currentVoiceConnection: VoiceConnection = null;
     public voiceConnectionDispatcher: StreamDispatcher = null;
 
@@ -33,11 +33,16 @@ export class Bot extends Client {
         // register all commands
         const commandsDir = path.resolve(__dirname, '..', 'commands');
 
+        this.bbscDiscord = this.guilds.cache.get(process.env.BBSC_GUILD_ID);
+        this.bbscDiscord.members.fetch();
+
         glob(`${commandsDir}/**/*.ts`, (err, commandFiles) => {
             commandFiles.forEach((file) => {
                 const command = require(file);
                 this.commands.set(command.name, command);
             })
+
+            new WebSocketServer(this);
         });
 
         // register all discord events
@@ -49,8 +54,6 @@ export class Bot extends Client {
 
             super.on(event.name, event.execute.bind(null, this));
         }
-
-        new WebSocketServer(this);
 
         this.logger.log('info', 'bot ready');
     }
