@@ -32,7 +32,7 @@
     "ibm-watson": "^5.7.1",
     "opusscript": "0.0.7",
     "ovh-winston-ldp": "^0.3.3",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "typescript": "^3.8.3",
     "winston": "^3.3.3",
     "winston-loki": "^6.0.0-rc.4"
