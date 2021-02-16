@@ -1,0 +1,15 @@
+  GNU nano 4.8                                                                                                          bbsc-bot.service                                                                                                                     
+[Unit]
+Description=BBSC-bot service
+After=network.target
+
+[Service]
+Type=simple
+User=bbsc-bot
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm run start --prefix /home/dragoon1010/github/bbsc-bot
+
+[Install]
+WantedBy=multi-user.target

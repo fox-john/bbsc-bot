@@ -35,7 +35,7 @@ module.exports = {
 
             bot.voiceConnectionDispatcher = connection.play(path.resolve(__dirname, '../../../static/audio', 'silence.mp3'));
 
-           /*  const params = {
+            /*  const params = {
                 model: 'fr-FR_BroadbandModel',
                 objectMode: true,
                 profanityFilter: false,

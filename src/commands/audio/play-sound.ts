@@ -22,8 +22,6 @@ module.exports = {
     
                 bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../../static/audio', fileName)), { type: 'ogg/opus' });
             }
-        } else {
-            bot.logger.log('error', 'unable to find audio file');
         }
     }
 };

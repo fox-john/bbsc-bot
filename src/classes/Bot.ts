@@ -5,13 +5,9 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 require('dotenv').config();
-import BotLogger from './BotLogger';
-import { Logger } from 'winston';
 import AmongUsGame from './among-us/AmongUsGame';
 
 export class Bot extends Client {
-    public logger: Logger;
-
     public commands: Collection<string, any> = new Collection();
     public bbscDiscord: Guild;
     public currentVoiceConnection: VoiceConnection = null;
@@ -21,8 +17,6 @@ export class Bot extends Client {
 
     constructor() {
         super();
-
-        this.logger = new BotLogger().start();
 
         this.on('ready', () => {
             this.init();
@@ -54,13 +48,5 @@ export class Bot extends Client {
 
             super.on(event.name, event.execute.bind(null, this));
         }
-
-        this.logger.log('info', 'bot ready');
-    }
-
-    async writeLog(type: string, message = ''): Promise<void> {
-        const cleanedMessage = message.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\*/g,'');
-
-        this.logger.log(type, cleanedMessage);
     }
 }
