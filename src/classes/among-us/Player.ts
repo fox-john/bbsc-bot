@@ -1,7 +1,7 @@
+import { GuildMember } from "discord.js";
 import PlayerAction from "../../enums/among-us/PlayerAction";
 import PlayerColor from "../../enums/among-us/PlayerColor";
 import PlayerState from "../../enums/among-us/PlayerState";
-import { GuildMember } from "discord.js";
 import PlayerType from "../../enums/among-us/PlayerType";
 
 export default class Player {
@@ -34,22 +34,22 @@ export default class Player {
 
     public get member(): GuildMember|undefined { return this._member; }
     public set member(value: GuildMember|undefined) { this._member = value; }
-    
+
     public get type(): PlayerType { return this._type; }
     public set type(value: PlayerType) { this._type = value; }
 
     public get name(): string { return this._name; }
     public set name(value: string) { this._name = value; }
-    
+
     public get action(): PlayerAction { return this._action; }
     public set action(value: PlayerAction) { this._action = value; }
-    
+
     public get isDead(): PlayerState { return this._isDead; }
     public set isDead(value: PlayerState) { this._isDead = value; }
-    
+
     public get disconnected(): boolean { return this._disconnected; }
     public set disconnected(value: boolean) { this._disconnected = value; }
-    
+
     public get color(): PlayerColor { return this._color; }
     public set color(value: PlayerColor) { this._color = value; }
 

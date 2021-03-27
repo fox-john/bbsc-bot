@@ -1,14 +1,13 @@
+import { Message } from 'discord.js';
 import { Bot } from '../../classes/Bot';
-import { EmbedMessage } from '../../classes/EmbedMessage';
-import { Message, TextChannel } from 'discord.js';
-import { IamAuthenticator } from 'ibm-watson/auth';
+import UserLevel from '../../enums/UserLevel';
 
 const fs = require('fs');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const FFmpeg  = require('fluent-ffmpeg');
 const path = require('path');
-/* 
+/*
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({ apikey: process.env.WATSON_API_KEY }),
     url: process.env.WATSON_SPEECH_TO_TEXT_URL
@@ -20,8 +19,7 @@ module.exports = {
     name: 'join',
     alias: ['bot-join'],
     description: '**/bot-join**: Demander au bot de se connecter au salon vocal',
-    isInternal: false,
-    isAdmin: false,
+    minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: false,
 

@@ -1,11 +1,11 @@
 import { Bot } from '../../classes/Bot';
+import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'stop',
-    alias: [],
+    alias: ['leave'],
     description: '**/stop**: Demander au bot de quitter le channel vocal',
-    isInternal: false,
-    isAdmin: false,
+    minLevel: UserLevel.USER,
     isVoiceCommand: true,
     args: true,
 

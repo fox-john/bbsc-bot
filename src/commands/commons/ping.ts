@@ -1,12 +1,12 @@
-import { Bot } from '../../classes/Bot';
 import { Message } from 'discord.js';
+import { Bot } from '../../classes/Bot';
+import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'ping',
     alias: ['pong'],
     description: '**/ping**: Recevoir un ping du bot',
-    isInternal: false,
-    isAdmin: false,
+    minLevel: UserLevel.USER,
     isVoiceCommand: false,
     args: false,
 
@@ -15,7 +15,7 @@ module.exports = {
 
         messageSended.reply(`Envoi d’une requête 'ping' sur ${messageSended.author.username} [${fakeIp}] avec 32 octets de données :`);
         setTimeout(() => {
-            
+
             for (let i = 0; i < 4; i++) {
                 setTimeout(() => {
                     messageSended.reply(`Réponse de ${fakeIp} : octets=32 temps=${Math.ceil(Math.random() * 100)} ms TTL=51`);

@@ -1,11 +1,11 @@
-import { Client, VoiceConnection, StreamDispatcher, Collection, Guild } from 'discord.js';
+import { Client, Collection, Guild, StreamDispatcher, VoiceConnection } from 'discord.js';
+import AmongUsGame from './among-us/AmongUsGame';
 import WebSocketServer from './WebSocketServer';
 
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 require('dotenv').config();
-import AmongUsGame from './among-us/AmongUsGame';
 
 export class Bot extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -20,7 +20,7 @@ export class Bot extends Client {
 
         this.on('ready', () => {
             this.init();
-        }) 
+        })
     }
 
     async init (): Promise<void> {

@@ -1,15 +1,12 @@
+import { GuildMember, Message, VoiceChannel } from 'discord.js';
 import { Bot } from '../../classes/Bot';
-import { GuildEmoji, GuildMember, Message, VoiceChannel } from 'discord.js';
-
-const path = require('path');
-const fs = require('fs');
+import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'unmute-channel',
     alias: ['unmute-channel', 'umc'],
-    description: '**/unmute-channel** or **/umc**: Unmuter tous les utilisateurs du salon vocal en cours \n👆 ⚠️ Cette commande ne retire pas le groupe "Mort Among Us" aux joueurs ⚠️',
-    isInternal: false,
-    isAdmin: true,
+    description: '**/unmute-channel** or **/umc**: Unmuter tous les utilisateurs du salon vocal en cours',
+    minLevel: UserLevel.ADMIN,
     isVoiceCommand: true,
     args: false,
 

@@ -1,7 +1,7 @@
+import { GuildMember } from "discord.js";
 import { Bot } from '../../classes/Bot';
-import PlayerAction from "../../enums/among-us/PlayerAction";
-import { BitField, GuildMember } from "discord.js";
 import WebSocketServer from '../../classes/WebSocketServer';
+import PlayerAction from "../../enums/among-us/PlayerAction";
 
 module.exports = {
     name: 'player',

@@ -1,11 +1,11 @@
-import GameState from '../../enums/among-us/GameState';
-import Player from '../../classes/among-us/Player';
-import PlayerColor from '../../enums/among-us/PlayerColor';
-import PlayerAction from '../../enums/among-us/PlayerAction';
-import PlayerState from '../../enums/among-us/PlayerState';
-import { Bot } from '../Bot';
 import { GuildMember } from 'discord.js';
+import GameState from '../../enums/among-us/GameState';
+import PlayerAction from '../../enums/among-us/PlayerAction';
+import PlayerColor from '../../enums/among-us/PlayerColor';
+import PlayerState from '../../enums/among-us/PlayerState';
 import PlayerType from '../../enums/among-us/PlayerType';
+import { Bot } from '../Bot';
+import Player from './Player';
 
 export default class AmongUsGame {
     private bot: Bot;

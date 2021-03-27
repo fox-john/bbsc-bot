@@ -14,7 +14,7 @@ module.exports = {
             if (bot.currentVoiceConnection) {
                 bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../static/audio', 'unmute.ogg')), { type: 'ogg/opus' });
             }
-    
+
             newMemberInfos.voice.channel.members.forEach(async (member: GuildMember) => {
                 if (!member.roles.cache.has(process.env.AMONG_US_ROLE_ID)) {
                     member.voice.setMute(false);

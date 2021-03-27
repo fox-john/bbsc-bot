@@ -1,15 +1,12 @@
-import { Bot } from '../../classes/Bot';
 import { GuildMember, Message, VoiceChannel } from 'discord.js';
-
-const path = require('path');
-const fs = require('fs');
+import { Bot } from '../../classes/Bot';
+import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'mute-channel',
     alias: ['mute-channel', 'mc'],
     description: '**/mute-channel** or **/mc**: Muter tous les utilisateurs du salon vocal en cours',
-    isInternal: false,
-    isAdmin: true,
+    minLevel: UserLevel.ADMIN,
     isVoiceCommand: true,
     args: false,
 

@@ -1,9 +1,7 @@
 import path from 'path';
 import SocketIO from 'socket.io';
 import { Bot } from './Bot';
-const io = require('socket.io')();
 const fs = require('fs');
-const os = require('os');
 
 export default class WebSocketServer extends SocketIO {
     constructor(bot: Bot) {

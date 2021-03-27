@@ -1,12 +1,12 @@
-import { Bot } from '../../classes/Bot';
 import { Message } from 'discord.js';
+import { Bot } from '../../classes/Bot';
+import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'setvolume',
     alias: ['volume'],
     description: '**/setvolume [volume: 1 > 10]**: Définir le volume du bot',
-    isInternal: false,
-    isAdmin: false,
+    minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: true,
 

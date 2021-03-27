@@ -1,15 +1,14 @@
 import { Bot } from '../../classes/Bot';
-import { GuildMember, Message, VoiceChannel } from 'discord.js';
+import UserLevel from '../../enums/UserLevel';
 
 const path = require('path');
 const fs = require('fs');
 
 module.exports = {
     name: 'play-sound',
-    alias: ['play-sound', 'ps'],
+    alias: ['play-sound', 'play'],
     description: '**/play-sound [sound-name]** or **/ps [sound-name]**: Jouer un son local',
-    isInternal: true,
-    isAdmin: true,
+    minLevel: UserLevel.ADMIN,
     isVoiceCommand: true,
     args: false,
 
@@ -19,7 +18,7 @@ module.exports = {
                 if (bot.voiceConnectionDispatcher !== null) {
                     await bot.voiceConnectionDispatcher.end();
                 }
-    
+
                 bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../../static/audio', fileName)), { type: 'ogg/opus' });
             }
         }

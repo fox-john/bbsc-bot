@@ -1,6 +1,7 @@
-import { Message, User, GuildEmoji } from 'discord.js';
-import { EmbedMessage } from '../../classes/EmbedMessage';
+import { GuildEmoji, Message, User } from 'discord.js';
 import { Bot } from '../../classes/Bot';
+import { EmbedMessage } from '../../classes/EmbedMessage';
+import UserLevel from '../../enums/UserLevel';
 const path = require('path');
 const glob = require('glob');
 
@@ -9,15 +10,14 @@ module.exports = {
     name: 'help',
     alias: [],
     description: '**/help**: Recevoir la liste des commandes',
-    isInternal: false,
-    isAdmin: false,
+    minLevel: UserLevel.USER,
     isVoiceCommand: false,
     args: false,
 
     execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
         let helpMessage = '';
-        const commandsList: Array<Array<string>> = [[], []];
+        const commandsList: Array<Array<string>> = [[], [], []];
 
         // get all commands
         const commandsDir = path.resolve(__dirname, '../');
@@ -27,27 +27,41 @@ module.exports = {
                 const command = require(file);
                 const helpText = `${command.description}\n`
 
-                if (!command.isInternal) {
-                    if (command.isAdmin) commandsList[0].push(helpText);
-                    else commandsList[1].push(helpText);
-                }
+                if (command.minLevel === UserLevel.ADMIN) commandsList[UserLevel.ADMIN].push(helpText);
+                else if (command.minLevel === UserLevel.MODERATOR) commandsList[UserLevel.MODERATOR].push(helpText);
+                else commandsList[UserLevel.USER].push(helpText);
             });
 
-            if (messageSended.member.hasPermission('ADMINISTRATOR')) {
+            if (messageSended.member.roles.cache.has(process.env.ADMIN_ROLE_ID)) {
                 helpMessage += '**Administrateur:** \n';
 
-                commandsList[0].forEach(commandText => {
+                commandsList[UserLevel.ADMIN].forEach(commandText => {
                     helpMessage += commandText;
-                })
+                });
+
+                commandsList[UserLevel.MODERATOR].forEach(commandText => {
+                    helpMessage += commandText;
+                });
+
                 helpMessage += '\n';
             }
-    
+
+            if (messageSended.member.roles.cache.has(process.env.MODERATOR_ROLE_ID)) {
+                helpMessage += '**Moderateur:** \n';
+
+                commandsList[UserLevel.MODERATOR].forEach(commandText => {
+                    helpMessage += commandText;
+                });
+
+                helpMessage += '\n';
+            }
+
             helpMessage += '**Utilisateur:** \n';
-    
-            commandsList[1].forEach(commandText => {
+
+            commandsList[UserLevel.USER].forEach(commandText => {
                 helpMessage += commandText;
             })
-            
+
             const embedMessage: EmbedMessage = new EmbedMessage({
                 color: '#006eff',
                 title: 'Liste des commandes',
@@ -56,7 +70,7 @@ module.exports = {
             });
 
             const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
-    
+
             user.createDM().then((dm) => {
                 dm.send(embedMessage);
                 messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);

@@ -1,4 +1,4 @@
-import { VoiceState, VoiceChannel, GuildMember, VoiceReceiver } from "discord.js";
+import { VoiceState } from "discord.js";
 import { Bot } from '../../classes/Bot';
 
 module.exports = {
