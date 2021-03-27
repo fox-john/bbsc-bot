@@ -16,7 +16,7 @@ module.exports = {
             const params: Array<string> = message.content.slice(1).split(/ +/);
             const commandName: string = params.shift().toLowerCase();
 
-            const command = bot.commands.get(commandName) || bot.commands.find(cmd => cmd.alias && cmd.alias.includes(commandName));
+            const command = bot.commands.find(cmd => cmd.commands && cmd.commands.includes(commandName));
 
             if (!command) return message.reply('Désolé, cette commande n\'existe pas.');
 

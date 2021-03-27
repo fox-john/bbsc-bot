@@ -4,9 +4,10 @@ import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'clean',
-    alias: [],
-    description: '**/clean [quantité]**: Suppprimer les X derniers messages',
-    minLevel: UserLevel.ADMIN,
+    commands: ['clean-message', 'clean', 'clear'],
+    exemple: '/clean [1-100]',
+    description: 'Suppprimer les X derniers messages',
+    minLevel: UserLevel.MODERATOR,
     isVoiceCommand: false,
     args: true,
 
@@ -23,30 +24,29 @@ module.exports = {
 
         const channel: TextChannel = messageSended.channel as TextChannel;
         const messagesToDelete: Array<Message> = [];
+        let quantityDeleted = 0;
 
-        channel.messages.fetch({ limit: quantity }).then((messages) => {
+        channel.messages.fetch({ limit: quantity + 1 }).then((messages) => {
             messages.forEach((message) => {
                 if (!message.pinned) {
                     messagesToDelete.push(message);
+                    quantityDeleted++;
                 }
         });
 
-        channel.send(`Suppression de ${quantity} message(s) En cours...`).then((waitingMessage) => {
-                channel.bulkDelete(messagesToDelete).catch(() => {
-                    messagesToDelete.forEach((message) => {
-                        if (!message.deleted) {
-                            message.delete();
-                        }
-                    })
-                }).finally(() => {
-                    channel.send(`Suppression de ${quantity} message(s) terminé !`).then((deleteMessage) => {
-                        setTimeout(() => {
-                            waitingMessage.delete();
-                            deleteMessage.delete();
-                        }, 3000);
-                    });
+        channel.bulkDelete(messagesToDelete).catch(() => {
+                messagesToDelete.forEach((message) => {
+                    if (!message.deleted) {
+                        message.delete();
+                    }
                 })
-            });
-        })
+            }).finally(() => {
+                channel.send(`${quantityDeleted} message(s) viennent d'être supprimé !`).then((deleteMessage) => {
+                    setTimeout(() => {
+                        deleteMessage.delete();
+                    }, 3000);
+                });
+            })
+        });
     }
 };

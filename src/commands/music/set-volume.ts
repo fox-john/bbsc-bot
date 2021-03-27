@@ -3,9 +3,10 @@ import { Bot } from '../../classes/Bot';
 import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
-    name: 'setvolume',
-    alias: ['volume'],
-    description: '**/setvolume [volume: 1 > 10]**: Définir le volume du bot',
+    name: 'set-volume',
+    commands: ['set-volume', 'volume', 'vol'],
+    exemple: '/volume [1-100]',
+    description: 'Définir le volume du bot',
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: true,

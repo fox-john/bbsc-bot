@@ -5,10 +5,11 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = {
-    name: 'play-sound',
-    alias: ['play-sound', 'play'],
-    description: '**/play-sound [sound-name]** or **/ps [sound-name]**: Jouer un son local',
-    minLevel: UserLevel.ADMIN,
+    name: 'play-internal-sound',
+    commands: ['play-internal-sound'],
+    exemple: '',
+    description: '[INTERNAL] Jouer un son local',
+    minLevel: UserLevel.INTERNAL,
     isVoiceCommand: true,
     args: false,
 

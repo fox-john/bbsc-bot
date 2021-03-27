@@ -8,8 +8,9 @@ const glob = require('glob');
 
 module.exports = {
     name: 'help',
-    alias: [],
-    description: '**/help**: Recevoir la liste des commandes',
+    commands: ['help', 'commands', 'man'],
+    exemple: '/help',
+    description: 'Recevoir la liste des commandes',
     minLevel: UserLevel.USER,
     isVoiceCommand: false,
     args: false,
@@ -25,11 +26,13 @@ module.exports = {
         glob(`${commandsDir}/**/*.ts`, function(err, commandFiles) {
             commandFiles.forEach((file) => {
                 const command = require(file);
-                const helpText = `${command.description}\n`
+                const helpText = `**${command.exemple}**:${command.description}\n`
 
-                if (command.minLevel === UserLevel.ADMIN) commandsList[UserLevel.ADMIN].push(helpText);
-                else if (command.minLevel === UserLevel.MODERATOR) commandsList[UserLevel.MODERATOR].push(helpText);
-                else commandsList[UserLevel.USER].push(helpText);
+                if (command.minLevel !== UserLevel.INTERNAL) {
+                    if (command.minLevel === UserLevel.ADMIN) commandsList[UserLevel.ADMIN].push(helpText);
+                    else if (command.minLevel === UserLevel.MODERATOR) commandsList[UserLevel.MODERATOR].push(helpText);
+                    else commandsList[UserLevel.USER].push(helpText);
+                }
             });
 
             if (messageSended.member.roles.cache.has(process.env.ADMIN_ROLE_ID)) {
@@ -69,11 +72,11 @@ module.exports = {
                 user
             });
 
-            const emojiSmirks: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'smirks');
+            const emojiVent: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'vent');
 
             user.createDM().then((dm) => {
                 dm.send(embedMessage);
-                messageSended.reply(`Liste des commandes envoyé par MP ${emojiSmirks}`);
+                messageSended.reply(`Liste des commandes envoyé par MP ${emojiVent}`);
             });
         });
     }

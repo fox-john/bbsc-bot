@@ -4,9 +4,10 @@ import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'mute-channel',
-    alias: ['mute-channel', 'mc'],
-    description: '**/mute-channel** or **/mc**: Muter tous les utilisateurs du salon vocal en cours',
-    minLevel: UserLevel.ADMIN,
+    commands: ['mute', 'mute-users', 'mute-channel', 'mc'],
+    exemple: '/mute',
+    description: 'Muter tous les utilisateurs du salon vocal en cours',
+    minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: false,
 

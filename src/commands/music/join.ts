@@ -17,8 +17,9 @@ let enableRecognition = false; */
 
 module.exports = {
     name: 'join',
-    alias: ['bot-join'],
-    description: '**/bot-join**: Demander au bot de se connecter au salon vocal',
+    commands: ['join', 'bot-join'],
+    exemple: '/join',
+    description: 'Demander au bot de se connecter au salon vocal',
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: false,

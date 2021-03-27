@@ -5,8 +5,9 @@ const ytdl = require('discord-ytdl-core');
 
 module.exports = {
     name: 'youtube-play',
-    alias: ['youtube-play', 'yplay'],
-    description: '**/youtube-play [youtube url]** or **/yplay [youtube url]**: Demander au bot de lire une vidéo youtube',
+    commands: ['youtube-play', 'play'],
+    exemple: '/play [youtube-link]',
+    description: 'Demander au bot de lire une vidéo youtube',
     minLevel: UserLevel.USER,
     isVoiceCommand: true,
     args: true,
