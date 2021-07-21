@@ -4,9 +4,16 @@ import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
     name: 'clean',
-    commands: ['clean-message', 'clean', 'clear'],
-    exemple: '/clean [1-100]',
-    description: 'Suppprimer les X derniers messages',
+    commands: ['clean', 'clear'],
+    description: {
+        title: 'Suppprimer les X derniers messages',
+        args: [
+            {
+                name: 'quantity [0-100]',
+                required: false,
+            }
+        ]
+    },
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: false,
     args: true,

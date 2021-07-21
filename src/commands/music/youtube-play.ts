@@ -6,8 +6,15 @@ const ytdl = require('discord-ytdl-core');
 module.exports = {
     name: 'youtube-play',
     commands: ['youtube-play', 'play'],
-    exemple: '/play [youtube-link]',
-    description: 'Demander au bot de lire une vidéo youtube',
+    description: {
+        title: 'Demander au bot de lire une vidéo youtube',
+        args: [
+            {
+                name: 'link',
+                required: true
+            }
+        ]
+    },
     minLevel: UserLevel.USER,
     isVoiceCommand: true,
     args: true,
@@ -51,7 +58,7 @@ module.exports = {
                     filter: 'audioonly'
                 });
 
-                bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.2, highWaterMark: 50 });
+                bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(stream, { type: 'opus', volume: 0.1, highWaterMark: 50 });
 
                 if (timecode != 0) {
                     const bufferingMessage = await messageSended.reply('Mise en mémoire tampon de la musique...');

@@ -5,8 +5,10 @@ import UserLevel from '../../enums/UserLevel';
 module.exports = {
     name: 'ping',
     commands: ['ping', 'pong'],
-    exemple: '/ping',
-    description: 'Recevoir un ping du bot',
+    description: {
+        title: 'Recevoir un ping du bot',
+        args: []
+    },
     minLevel: UserLevel.USER,
     isVoiceCommand: false,
     args: false,

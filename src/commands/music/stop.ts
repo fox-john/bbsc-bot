@@ -4,8 +4,10 @@ import UserLevel from '../../enums/UserLevel';
 module.exports = {
     name: 'stop',
     commands: ['stop', 'leave'],
-    exemple: '/stop',
-    description: 'Demander au bot de quitter le channel vocal',
+    description: {
+        title: 'Demander au bot de quitter le channel vocal',
+        args: []
+    },
     minLevel: UserLevel.USER,
     isVoiceCommand: true,
     args: true,

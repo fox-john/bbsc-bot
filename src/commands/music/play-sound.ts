@@ -7,8 +7,15 @@ const fs = require('fs');
 module.exports = {
     name: 'play-internal-sound',
     commands: ['play-internal-sound'],
-    exemple: '',
-    description: '[INTERNAL] Jouer un son local',
+    description: {
+        title: '[INTERNAL] Jouer un son local',
+        args: [
+            {
+                name: 'soundName',
+                required: true
+            }
+        ]
+    },
     minLevel: UserLevel.INTERNAL,
     isVoiceCommand: true,
     args: false,

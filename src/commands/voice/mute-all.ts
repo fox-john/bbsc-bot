@@ -5,8 +5,10 @@ import UserLevel from '../../enums/UserLevel';
 module.exports = {
     name: 'mute-channel',
     commands: ['mute', 'mute-users', 'mute-channel', 'mc'],
-    exemple: '/mute',
-    description: 'Muter tous les utilisateurs du salon vocal en cours',
+    description: {
+        title: 'Muter tous les utilisateurs du salon vocal en cours',
+        args: []
+    },
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: false,
@@ -15,7 +17,7 @@ module.exports = {
         const currentChannel: VoiceChannel = messageSended.member.voice.channel;
         const membersList = await currentChannel.members;
 
-        bot.commands.get('play-sound').execute(bot, 'mute.ogg');
+        bot.commands.get('play-internal-sound').execute(bot, 'mute.ogg');
 
         membersList.forEach(async (member: GuildMember) => {
             if (member.id !== process.env.BBSC_BOT_ID) {

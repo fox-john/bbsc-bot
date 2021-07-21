@@ -5,3 +5,5 @@ logs
 .env
 *.sh
 *.env
+.vscode
+

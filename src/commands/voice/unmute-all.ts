@@ -5,8 +5,10 @@ import UserLevel from '../../enums/UserLevel';
 module.exports = {
     name: 'unmute-channel',
     commands: ['unmute', 'unmute-users', 'unmute-channel', 'umc'],
-    exemple: '/unmute',
-    description: 'Unmuter tous les utilisateurs du salon vocal en cours',
+    description: {
+        title: 'Unmuter tous les utilisateurs du salon vocal en cours',
+        args: []
+    },
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: false,
@@ -15,7 +17,7 @@ module.exports = {
         const currentChannel: VoiceChannel = messageSended.member.voice.channel;
         const membersList = await currentChannel.members;
 
-        bot.commands.get('play-sound').execute(bot, 'unmute.ogg');
+        bot.commands.get('play-internal-sound').execute(bot, 'unmute.ogg');
 
         membersList.forEach(async (member: GuildMember) => {
             if (member.id !== process.env.BBSC_BOT_ID) {

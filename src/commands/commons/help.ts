@@ -5,12 +5,13 @@ import UserLevel from '../../enums/UserLevel';
 const path = require('path');
 const glob = require('glob');
 
-
 module.exports = {
     name: 'help',
-    commands: ['help', 'commands', 'man'],
-    exemple: '/help',
-    description: 'Recevoir la liste des commandes',
+    commands: ['help', 'commands'],
+    description: {
+        title: 'Recevoir la liste des commandes',
+        args: []
+    },
     minLevel: UserLevel.USER,
     isVoiceCommand: false,
     args: false,
@@ -26,7 +27,8 @@ module.exports = {
         glob(`${commandsDir}/**/*.ts`, function(err, commandFiles) {
             commandFiles.forEach((file) => {
                 const command = require(file);
-                const helpText = `**${command.exemple}**:${command.description}\n`
+
+                const helpText = `/${command.name}, `;
 
                 if (command.minLevel !== UserLevel.INTERNAL) {
                     if (command.minLevel === UserLevel.ADMIN) commandsList[UserLevel.ADMIN].push(helpText);
@@ -38,32 +40,45 @@ module.exports = {
             if (messageSended.member.roles.cache.has(process.env.ADMIN_ROLE_ID)) {
                 helpMessage += '**Administrateur:** \n';
 
-                commandsList[UserLevel.ADMIN].forEach(commandText => {
-                    helpMessage += commandText;
-                });
+                if (commandsList[UserLevel.ADMIN].length) {
+                    commandsList[UserLevel.ADMIN].forEach(commandText => {
+                        helpMessage += commandText;
+                    });
+                } else {
+                    helpMessage += 'Aucune commandes existante pour ce rôle';
+                }
 
-                commandsList[UserLevel.MODERATOR].forEach(commandText => {
-                    helpMessage += commandText;
-                });
 
-                helpMessage += '\n';
+                helpMessage = helpMessage.slice(0, -2);
+                helpMessage += '\n\n';
             }
 
-            if (messageSended.member.roles.cache.has(process.env.MODERATOR_ROLE_ID)) {
+            if (messageSended.member.roles.cache.has(process.env.ADMIN_ROLE_ID) || messageSended.member.roles.cache.has(process.env.MODERATOR_ROLE_ID)) {
                 helpMessage += '**Moderateur:** \n';
 
-                commandsList[UserLevel.MODERATOR].forEach(commandText => {
-                    helpMessage += commandText;
-                });
+                if (commandsList[UserLevel.MODERATOR].length) {
+                    commandsList[UserLevel.MODERATOR].forEach(commandText => {
+                        helpMessage += commandText;
+                    });
+                } else {
+                    helpMessage += 'Aucune commandes existante pour ce rôle';
+                }
 
-                helpMessage += '\n';
+                helpMessage = helpMessage.slice(0, -2);
+                helpMessage += '\n\n';
             }
 
             helpMessage += '**Utilisateur:** \n';
 
-            commandsList[UserLevel.USER].forEach(commandText => {
-                helpMessage += commandText;
-            })
+            if (commandsList[UserLevel.USER].length) {
+                commandsList[UserLevel.USER].forEach(commandText => {
+                    helpMessage += commandText;
+                });
+            } else {
+                helpMessage += 'Aucune commandes existante pour ce rôle';
+            }
+
+            helpMessage = helpMessage.slice(0, -2);
 
             const embedMessage: EmbedMessage = new EmbedMessage({
                 color: '#006eff',

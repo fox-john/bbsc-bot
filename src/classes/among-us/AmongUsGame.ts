@@ -22,15 +22,15 @@ export default class AmongUsGame {
     public get players():  Map<string, Player> { return this._players; }
     public set players(value:  Map<string, Player>) { this._players = value; }
 
-    public launchGame(): void {
+    public launchGame(bot: Bot): void {
         this.state = GameState.MENU;
     }
 
-    public async launchLobby(): Promise<void> {
+    public async launchLobby(bot: Bot): Promise<void> {
         setTimeout(() => {
             this.state = GameState.LOBBY;
 
-            this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
+            this.bot.commands.get('play-internal-sound').execute(this.bot, 'unmute.ogg');
 
             this.players.forEach((player) => {
                 player.isDead = PlayerState.ALIVE;
@@ -39,7 +39,7 @@ export default class AmongUsGame {
         }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
 
-    public addPlayer(playerInfos: Record<string, any>, member?: GuildMember): void {
+    public addPlayer(bot: Bot, playerInfos: Record<string, any>, member?: GuildMember): void {
         if (!Bot.amongUsGame.players.has(playerInfos.Name)) {
             const player = new Player({
                 member,
@@ -55,17 +55,17 @@ export default class AmongUsGame {
         }
     }
 
-    public removePlayer(playerInfos: Record<string, any>): void {
+    public removePlayer(bot: Bot, playerInfos: Record<string, any>): void {
         if (Bot.amongUsGame.players.has(playerInfos.Name)) {
             this.players.get(playerInfos.Name).mute(false);
             this.players.delete(playerInfos.Name);
         }
     }
 
-    public async launchParty(): Promise<void> {
+    public async launchParty(bot: Bot): Promise<void> {
         setTimeout(() => {
             this.state = GameState.TASKS;
-            this.bot.commands.get('play-sound').execute(this.bot, 'mute.ogg');
+            this.bot.commands.get('play-internal-sound').execute(this.bot, 'mute.ogg');
 
             this.players.forEach(async (player) => {
                 player.mute(true);
@@ -73,9 +73,9 @@ export default class AmongUsGame {
         }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
 
-    public async launchDiscussion(): Promise<void> {
+    public async launchDiscussion(bot: Bot): Promise<void> {
         this.state = GameState.DISCUSS;
-        this.bot.commands.get('play-sound').execute(this.bot, 'unmute.ogg');
+        this.bot.commands.get('play-internal-sound').execute(this.bot, 'unmute.ogg');
 
         this.players.forEach((player) => {
             if (!player.isDead) {
@@ -84,7 +84,7 @@ export default class AmongUsGame {
         });
     }
 
-    public killPlayer(playerName: string): void {
+    public killPlayer(bot: Bot, playerName: string): void {
         this.players.get(playerName).isDead = PlayerState.DEAD;
     }
 }

@@ -14,13 +14,13 @@ module.exports = {
         }
 
         if (gameState === GameState.MENU) {
-            Bot.amongUsGame.launchGame();
+            Bot.amongUsGame.launchGame(bot);
         } else if (gameState === GameState.LOBBY) {
-            Bot.amongUsGame.launchLobby();
+            Bot.amongUsGame.launchLobby(bot);
         } else if (gameState === GameState.TASKS) {
-            Bot.amongUsGame.launchParty();
+            Bot.amongUsGame.launchParty(bot);
         } else if (gameState === GameState.DISCUSS) {
-            Bot.amongUsGame.launchDiscussion();
+            Bot.amongUsGame.launchDiscussion(bot);
         }
     }
 }

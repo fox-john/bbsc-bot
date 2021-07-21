@@ -5,8 +5,15 @@ import UserLevel from '../../enums/UserLevel';
 module.exports = {
     name: 'set-volume',
     commands: ['set-volume', 'volume', 'vol'],
-    exemple: '/volume [1-100]',
-    description: 'Définir le volume du bot',
+    description: {
+        title: 'Définir le volume du bot',
+        args: [
+            {
+                name: 'value',
+                required: true
+            }
+        ]
+    },
     minLevel: UserLevel.MODERATOR,
     isVoiceCommand: true,
     args: true,

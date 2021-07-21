@@ -8,20 +8,29 @@ module.exports = {
 
     execute: (bot: Bot, event: WebSocketServer, params: any) => {
         const playerInfos = JSON.parse(params);
-        const member: GuildMember = bot.bbscDiscord.members.cache.find((member) => member.user.username === playerInfos.Name);
+
+        let member: GuildMember = bot.bbscDiscord.members.cache.find((member) => {
+            return playerInfos.Name === member.user.username;
+        });
+
+        if (!member) {
+            member = bot.bbscDiscord.members.cache.find((member) => {
+                return playerInfos.Name === member.nickname;
+            });
+        }
 
         switch(parseInt(playerInfos.Action)) {
             case PlayerAction.JOIN:
             case PlayerAction.FORCE_UPDATE:
-                Bot.amongUsGame.addPlayer(playerInfos, member);
+                Bot.amongUsGame.addPlayer(bot, playerInfos, member);
                 break;
             case PlayerAction.DISCONNECT:
             case PlayerAction.LEAVE:
-                Bot.amongUsGame.removePlayer(playerInfos);
+                Bot.amongUsGame.removePlayer(bot, playerInfos);
                 break;
             case PlayerAction.EXILE:
             case PlayerAction.KILL:
-                Bot.amongUsGame.killPlayer(playerInfos.Name);
+                Bot.amongUsGame.killPlayer(bot, playerInfos.Name);
                 break;
             default:
                 break;
