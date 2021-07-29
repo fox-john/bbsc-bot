@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, VoiceChannel } from 'discord.js';
 import { Bot } from '../../classes/Bot';
 import UserLevel from '../../enums/UserLevel';
 
@@ -27,7 +27,9 @@ module.exports = {
     args: false,
 
     execute(bot: Bot, messageSended: Message) {
-        messageSended.member.voice.channel.join().then(async (connection) => {
+        const channel = messageSended ? messageSended.member.voice.channel : bot.channels.cache.get(process.env.AMONG_US_CHANNEL_ID) as VoiceChannel;
+
+        channel.join().then(async (connection) => {
             bot.currentVoiceConnection = connection;
 
             if (bot.voiceConnectionDispatcher !== null) {

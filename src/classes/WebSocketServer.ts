@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import path from 'path';
 import SocketIO from 'socket.io';
 import { Bot } from './Bot';
@@ -21,6 +22,6 @@ export default class WebSocketServer extends SocketIO {
 
         super.listen(8123);
 
-        console.log('websocket server listen to http://www.jrw-prod.fr:8123')
+        console.log(chalk.bgGreen.black(' websocket server listen to http://www.jrw-prod.fr:8123 '));
     }
 }
