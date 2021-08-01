@@ -13,8 +13,8 @@ class EmbedMessage {
 
         embedMessage.setColor(params.color);
         embedMessage.setTitle(params.title);
-        embedMessage.setDescription(params.message);
-        params.fields === null ?? embedMessage.addFields(params.fields);
+        params.message === undefined ? '' : embedMessage.setDescription(params.message);
+        params.fields === null ? '' : embedMessage.addFields(params.fields);
         embedMessage.setFooter(`Envoyé le ${dateFormatted}`)
 
         return embedMessage;

@@ -53,9 +53,15 @@ export default class Player {
     public get color(): PlayerColor { return this._color; }
     public set color(value: PlayerColor) { this._color = value; }
 
-    public mute(value: boolean): void {
+    public setMute(value: boolean): void {
         if (this.type === PlayerType.DISCORD) {
             this.member.voice.setMute(value);
+        }
+    }
+
+    public setDeaf(value: boolean): void {
+        if (this.type === PlayerType.DISCORD) {
+            this.member.voice.setDeaf(value);
         }
     }
 }

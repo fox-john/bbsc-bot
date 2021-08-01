@@ -34,7 +34,8 @@ export default class AmongUsGame {
 
             this.players.forEach((player) => {
                 player.isDead = PlayerState.ALIVE;
-                player.mute(false);
+                player.setMute(false);
+                player.setDeaf(false);
             });
         }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
@@ -57,7 +58,9 @@ export default class AmongUsGame {
 
     public removePlayer(bot: Bot, playerInfos: Record<string, any>): void {
         if (Bot.amongUsGame.players.has(playerInfos.Name)) {
-            this.players.get(playerInfos.Name).mute(false);
+            this.players.get(playerInfos.Name).setMute(false);
+            this.players.get(playerInfos.Name).setDeaf(false);
+
             this.players.delete(playerInfos.Name);
         }
     }
@@ -68,7 +71,13 @@ export default class AmongUsGame {
             this.bot.commands.get('play-internal-sound').execute(this.bot, 'mute.ogg');
 
             this.players.forEach(async (player) => {
-                player.mute(true);
+                if (player.isDead) {
+                    player.setMute(false);
+                    player.setDeaf(false);
+                } else {
+                    player.setMute(true);
+                    player.setDeaf(true);
+                }
             });
         }, this.state === GameState.DISCUSS ? 7000 : 0);
     }
@@ -78,13 +87,19 @@ export default class AmongUsGame {
         this.bot.commands.get('play-internal-sound').execute(this.bot, 'unmute.ogg');
 
         this.players.forEach((player) => {
-            if (!player.isDead) {
-                player.mute(false);
+            if (player.isDead) {
+                player.setMute(true);
+                player.setDeaf(true);
+            } else {
+                player.setMute(false);
+                player.setDeaf(false);
             }
         });
     }
 
     public killPlayer(bot: Bot, playerName: string): void {
-        this.players.get(playerName).isDead = PlayerState.DEAD;
+        if (this.players.get(playerName)) {
+            this.players.get(playerName).isDead = PlayerState.DEAD;
+        }
     }
 }

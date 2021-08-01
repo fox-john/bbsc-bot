@@ -40,9 +40,9 @@ module.exports = {
 
                 command.execute(bot, message, params);
             } catch (error) {
-                console.error(error);
                 const emojiBwa: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'bwa');
                 message.reply(`Désolé, Il y a eu une erreur en executant cette commande ${emojiBwa}`);
+                throw error;
             }
         }
     }
