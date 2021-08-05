@@ -4,7 +4,7 @@ import PlayerAction from '../../enums/among-us/PlayerAction';
 import PlayerColor from '../../enums/among-us/PlayerColor';
 import PlayerState from '../../enums/among-us/PlayerState';
 import PlayerType from '../../enums/among-us/PlayerType';
-import { Bot } from '../Bot';
+import { Bot } from '../discord/Bot';
 import Player from './Player';
 
 export default class AmongUsGame {

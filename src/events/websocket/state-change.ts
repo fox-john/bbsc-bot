@@ -1,5 +1,5 @@
 import AmongUsGame from '../../classes/among-us/AmongUsGame';
-import { Bot } from '../../classes/Bot';
+import { Bot } from '../../classes/discord/Bot';
 import WebSocketServer from '../../classes/WebSocketServer';
 import GameState from '../../enums/among-us/GameState';
 

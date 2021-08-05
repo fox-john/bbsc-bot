@@ -1,12 +1,16 @@
 import chalk from 'chalk';
+import fs from 'fs';
 import path from 'path';
-import SocketIO from 'socket.io';
-import { Bot } from './Bot';
-const fs = require('fs');
+import { Server as SocketIO } from "socket.io";
+import { Bot } from './discord/Bot';
 
 export default class WebSocketServer extends SocketIO {
+    public WSocketServer;
+
     constructor(bot: Bot) {
-        super();
+        super({
+            allowEIO3: true
+        })
 
         // register all WebSocket events
         const webSocketEventsDir = path.resolve(__dirname, '..', 'events/websocket');

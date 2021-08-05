@@ -1,10 +1,9 @@
 import { Message, User } from 'discord.js';
-import { Bot } from '../../classes/Bot';
-import { EmbedMessage } from '../../classes/EmbedMessage';
+import glob from 'glob';
+import * as path from 'path';
+import { Bot } from '../../classes/discord/Bot';
+import { EmbedMessage } from '../../classes/discord/EmbedMessage';
 import UserLevel from '../../enums/UserLevel';
-
-const path = require('path');
-const glob = require('glob');
 
 module.exports = {
     name: 'man',

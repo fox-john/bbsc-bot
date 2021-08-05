@@ -1,4 +1,4 @@
-import { Bot } from "../../classes/Bot"
+import { Bot } from "../../classes/discord/Bot"
 import WebSocketServer from "../../classes/WebSocketServer"
 module.exports = {
     name: 'lobby',

@@ -1,5 +1,5 @@
 import { GuildMember } from "discord.js";
-import { Bot } from '../../classes/Bot';
+import { Bot } from '../../classes/discord/Bot';
 import WebSocketServer from '../../classes/WebSocketServer';
 import PlayerAction from "../../enums/among-us/PlayerAction";
 

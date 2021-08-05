@@ -1,12 +1,11 @@
 import { Message, VoiceChannel } from 'discord.js';
-import { Bot } from '../../classes/Bot';
+import * as path from 'path';
+import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
 
-const fs = require('fs');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const FFmpeg  = require('fluent-ffmpeg');
-const path = require('path');
 /*
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({ apikey: process.env.WATSON_API_KEY }),

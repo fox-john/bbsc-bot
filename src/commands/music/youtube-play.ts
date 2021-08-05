@@ -1,7 +1,7 @@
+import ytdl from 'discord-ytdl-core';
 import { Message } from 'discord.js';
-import { Bot } from '../../classes/Bot';
+import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
-const ytdl = require('discord-ytdl-core');
 
 module.exports = {
     name: 'youtube-play',

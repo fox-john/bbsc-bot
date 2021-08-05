@@ -1,9 +1,9 @@
 import { GuildEmoji, Message, User } from 'discord.js';
-import { Bot } from '../../classes/Bot';
-import { EmbedMessage } from '../../classes/EmbedMessage';
+import glob from 'glob';
+import * as path from 'path';
+import { Bot } from '../../classes/discord/Bot';
+import { EmbedMessage } from '../../classes/discord/EmbedMessage';
 import UserLevel from '../../enums/UserLevel';
-const path = require('path');
-const glob = require('glob');
 
 module.exports = {
     name: 'help',
@@ -24,7 +24,7 @@ module.exports = {
         // get all commands
         const commandsDir = path.resolve(__dirname, '../');
 
-        glob(`${commandsDir}/**/*.ts`, function(err, commandFiles) {
+        glob(`${commandsDir}/**/*.ts`, function(_error: Error, commandFiles: Array<string>) {
             commandFiles.forEach((file) => {
                 const command = require(file);
 
@@ -38,18 +38,15 @@ module.exports = {
             });
 
             if (messageSended.member.roles.cache.has(process.env.ADMIN_ROLE_ID)) {
-                helpMessage += '**Administrateur:** \n';
-
                 if (commandsList[UserLevel.ADMIN].length) {
+                    helpMessage += '**Administrateur:** \n';
+
                     commandsList[UserLevel.ADMIN].forEach(commandText => {
                         helpMessage += commandText;
                     });
-                } else {
-                    helpMessage += 'Aucune commandes existante pour ce rôle';
                 }
 
-
-                helpMessage = helpMessage.slice(0, -2);
+                //helpMessage = helpMessage.slice(0, -2);
                 helpMessage += '\n\n';
             }
 
@@ -77,7 +74,7 @@ module.exports = {
             } else {
                 helpMessage += 'Aucune commandes existante pour ce rôle';
             }
-
+            console.log(helpMessage);
             helpMessage = helpMessage.slice(0, -2);
 
             const embedMessage: EmbedMessage = new EmbedMessage({

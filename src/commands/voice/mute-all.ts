@@ -1,5 +1,5 @@
 import { GuildMember, Message, VoiceChannel } from 'discord.js';
-import { Bot } from '../../classes/Bot';
+import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
 
 module.exports = {

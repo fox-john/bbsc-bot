@@ -1,8 +1,7 @@
-import { Bot } from '../../classes/Bot';
+import fs from 'fs';
+import * as path from 'path';
+import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
-
-const path = require('path');
-const fs = require('fs');
 
 module.exports = {
     name: 'play-internal-sound',

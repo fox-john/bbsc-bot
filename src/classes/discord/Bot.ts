@@ -1,12 +1,12 @@
 import { Client, Collection, Guild, StreamDispatcher, VoiceConnection } from 'discord.js';
-import AmongUsGame from './among-us/AmongUsGame';
-import Sequelizer from './Sequelizer';
-import WebSocketServer from './WebSocketServer';
-
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
-require('dotenv').config();
+import dotenv from 'dotenv';
+import fs from 'fs';
+import glob from 'glob';
+import * as path from 'path';
+import AmongUsGame from '../among-us/AmongUsGame';
+import Sequelizer from '../Sequelizer';
+import WebSocketServer from '../WebSocketServer';
+dotenv.config()
 
 export class Bot extends Client {
     public commands: Collection<string, any> = new Collection();
@@ -38,12 +38,12 @@ export class Bot extends Client {
 
 
         // register all commands
-        const commandsDir = path.resolve(__dirname, '..', 'commands');
+        const commandsDir = path.resolve(__dirname, '../..', 'commands');
 
         this.bbscDiscord = await this.guilds.cache.get(process.env.BBSC_GUILD_ID).fetch();
         this.bbscDiscord.members.fetch();
 
-        glob(`${commandsDir}/**/*.ts`, (err, commandFiles) => {
+        glob(`${commandsDir}/**/*.ts`, (_error: Error, commandFiles: Array<string>) => {
             commandFiles.forEach((file) => {
                 const command = require(file);
                 this.commands.set(command.name, command);
@@ -53,7 +53,7 @@ export class Bot extends Client {
         });
 
         // register all discord events
-        const discordEventsDir = path.resolve(__dirname, '..', 'events/discord-js');
+        const discordEventsDir = path.resolve(__dirname, '../..', 'events/discord-js');
         const discordEventFiles = fs.readdirSync(discordEventsDir).filter(file => file.endsWith('.ts'));
 
         for (const file of discordEventFiles) {
