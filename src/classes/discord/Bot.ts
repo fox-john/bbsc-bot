@@ -4,7 +4,6 @@ import fs from 'fs';
 import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
-import Sequelizer from '../Sequelizer';
 import WebSocketServer from '../WebSocketServer';
 dotenv.config()
 
@@ -14,7 +13,6 @@ export class Bot extends Client {
     public currentVoiceConnection: VoiceConnection = null;
     public voiceConnectionDispatcher: StreamDispatcher = null;
     public static amongUsGame: AmongUsGame|undefined;
-    public sequelizer: Sequelizer;
 
     constructor() {
         super();
@@ -25,18 +23,6 @@ export class Bot extends Client {
     }
 
     async init (): Promise<void> {
-/*         try {
-            this.sequelizer = new Sequelizer();
-            await this.sequelizer.sequelize.authenticate();
-            console.log('Connection has been established successfully.');
-
-            const result = await this.sequelizer.sequelize.query('SELECT * from users');
-            console.log(result);
-        } catch (error) {
-            console.error('Unable to connect to the database:', error);
-        } */
-
-
         // register all commands
         const commandsDir = path.resolve(__dirname, '../..', 'commands');
 

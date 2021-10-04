@@ -9,7 +9,7 @@ User=bbsc-bot
 Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=/var/www/bbsc/bot
+WorkingDirectory=/home/dragoon1010/github/bbsc-bot
 ExecStart=/usr/bin/yarn run start
 Restart=always
 RestartSec=3
