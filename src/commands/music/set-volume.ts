@@ -23,11 +23,11 @@ module.exports = {
 
         if (bot.voiceConnectionDispatcher !== null) {
             const finalVolume: number = volume / 100;
-
+            console.log(finalVolume);
             if (finalVolume > 0.0 && finalVolume <= 1.0) {
                 bot.voiceConnectionDispatcher.setVolume(finalVolume);
             } else {
-                messageSended.reply('Le volume est trop bas ou trop élevé ! (valeur entre 1 et 10)');
+                messageSended.reply('Le volume est trop bas ou trop élevé ! (valeur entre 1 et 100)');
             }
         }
     },
