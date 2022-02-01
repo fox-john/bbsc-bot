@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import AmongUsGame from '../../classes/among-us/AmongUsGame';
 import { Bot } from '../../classes/discord/Bot';
 import WebSocketServer from '../../classes/WebSocketServer';
@@ -8,6 +9,8 @@ module.exports = {
 
     execute: (bot: Bot, event: WebSocketServer, params: any) => {
         const gameState = JSON.parse(params);
+
+        console.log(`new state for game: ${gameState}`);
 
         if (!Bot.amongUsGame) {
             Bot.amongUsGame = new AmongUsGame(bot);

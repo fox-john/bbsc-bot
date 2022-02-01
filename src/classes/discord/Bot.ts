@@ -5,6 +5,8 @@ import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
 import WebSocketServer from '../WebSocketServer';
+import mariadb, { Pool } from 'mariadb';
+
 dotenv.config()
 
 export class Bot extends Client {
@@ -13,6 +15,7 @@ export class Bot extends Client {
     public currentVoiceConnection: VoiceConnection = null;
     public voiceConnectionDispatcher: StreamDispatcher = null;
     public static amongUsGame: AmongUsGame|undefined;
+    public static mariaDbConnection: Pool;
 
     constructor() {
         super();
@@ -20,9 +23,25 @@ export class Bot extends Client {
         this.on('ready', () => {
             this.init();
         })
+
+/*         if (!Bot.mariaDbConnection) {
+            Bot.mariaDbConnection = mariadb.createPool({
+                host: process.env.MARIADB_HOST,
+                user: process.env.MARIADB_USER,
+                password: process.env.MARIADB_PASSWORD,
+                connectionLimit: 5
+            });
+        } */
     }
 
     async init (): Promise<void> {
+
+        /* const connection = await Bot.mariaDbConnection.getConnection();
+        await connection.query("use discord;");
+        const rows = await connection.query("");
+        console.log(rows);
+        connection.end(); */
+
         // register all commands
         const commandsDir = path.resolve(__dirname, '../..', 'commands');
 

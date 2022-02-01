@@ -1,0 +1,5 @@
+CREATE TABLE discord.members (
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);

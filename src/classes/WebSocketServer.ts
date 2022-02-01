@@ -5,8 +5,6 @@ import { Server as SocketIO } from "socket.io";
 import { Bot } from './discord/Bot';
 
 export default class WebSocketServer extends SocketIO {
-    public amongUsCaptureId: string;
-
     constructor(bot: Bot) {
         super({
             allowEIO3: true,
@@ -20,15 +18,13 @@ export default class WebSocketServer extends SocketIO {
         const webSocketEventFiles = fs.readdirSync(webSocketEventsDir).filter(file => file.endsWith('.ts'));
 
         super.on('connection', (socket) => {
-            if (this.amongUsCaptureId != socket.id) {
-                this.amongUsCaptureId = socket.id;
-
-                for (const file of webSocketEventFiles) {
-                    const event = require(`${webSocketEventsDir}/${file}`);
-
-                    socket.on(event.name, event.execute.bind(null, bot, this));
-                }
+            for (const file of webSocketEventFiles) {
+                const event = require(`${webSocketEventsDir}/${file}`);
+                socket.on(event.name, event.execute.bind(null, bot, this));
             }
+            /* socket.onAny((eventName, args) => {
+                console.log(chalk.red(socket.id), chalk.blue(eventName, args));
+            }); */
         });
 
         super.listen(Number.parseInt(process.env.SOCKET_IO_PORT));

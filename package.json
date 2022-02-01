@@ -31,6 +31,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "glob": "^7.1.6",
     "ibm-watson": "^6.0.2",
+    "mariadb": "^2.5.5",
     "opusscript": "^0.0.7",
     "ovh-winston-ldp": "^0.3.3",
     "pg": "^8.7.1",

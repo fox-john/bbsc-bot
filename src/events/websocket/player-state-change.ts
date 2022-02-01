@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { GuildMember } from "discord.js";
 import { Bot } from '../../classes/discord/Bot';
 import WebSocketServer from '../../classes/WebSocketServer';
@@ -8,6 +9,8 @@ module.exports = {
 
     execute: (bot: Bot, event: WebSocketServer, params: any) => {
         const playerInfos = JSON.parse(params);
+
+        console.log(`new state for player: ${params}`);
 
         let member: GuildMember = bot.bbscDiscord.members.cache.find((member) => {
             return playerInfos.Name === member.user.username;
