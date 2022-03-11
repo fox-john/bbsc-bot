@@ -16,7 +16,6 @@
       "typeRoots": [
         // add path to @types
         "@types/node",
-        "node_modules/winston/index.d.ts",
         "node_modules/@types",
         "node_modules/@typescript-eslint",
         "node_modules/@typeit/discord",

@@ -18,6 +18,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.4.0",
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "@sequelize/core": "^7.0.0-alpha.10",
     "@typeit/discord": "^4.0.9",
     "@types/node": "^14.14.28",
     "@types/redis": "^2.8.31",
@@ -31,17 +32,10 @@
     "fluent-ffmpeg": "^2.1.2",
     "glob": "^7.1.6",
     "ibm-watson": "^6.0.2",
-    "mariadb": "^2.5.5",
+    "mariadb": "^2.5.6",
     "opusscript": "^0.0.7",
-    "ovh-winston-ldp": "^0.3.3",
-    "pg": "^8.7.1",
-    "pg-hstore": "^2.3.4",
-    "redis": "^3.1.2",
-    "sequelize": "^6.6.5",
     "socket.io": "^4.2.0",
     "typescript": "^4.1.5",
-    "winston": "^3.3.3",
-    "winston-loki": "^6.0.0-rc.9",
     "ytdl-core": "^4.8.3"
   },
   "devDependencies": {

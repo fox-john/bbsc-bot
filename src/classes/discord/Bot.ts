@@ -5,7 +5,8 @@ import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
 import WebSocketServer from '../WebSocketServer';
-import mariadb, { Pool } from 'mariadb';
+import { UserModel } from '../../models/user';
+import sequelize from '../../utils/database';
 
 dotenv.config()
 
@@ -15,7 +16,6 @@ export class Bot extends Client {
     public currentVoiceConnection: VoiceConnection = null;
     public voiceConnectionDispatcher: StreamDispatcher = null;
     public static amongUsGame: AmongUsGame|undefined;
-    public static mariaDbConnection: Pool;
 
     constructor() {
         super();
@@ -23,24 +23,28 @@ export class Bot extends Client {
         this.on('ready', () => {
             this.init();
         })
-
-/*         if (!Bot.mariaDbConnection) {
-            Bot.mariaDbConnection = mariadb.createPool({
-                host: process.env.MARIADB_HOST,
-                user: process.env.MARIADB_USER,
-                password: process.env.MARIADB_PASSWORD,
-                connectionLimit: 5
-            });
-        } */
     }
 
     async init (): Promise<void> {
+/*         await sequelize.authenticate()
+            .then(() => {
+                console.log('Connection has been established successfully.');
+            }).catch((error) => {
+                console.error('Unable to connect to the database:', error);
+            });
 
-        /* const connection = await Bot.mariaDbConnection.getConnection();
-        await connection.query("use discord;");
-        const rows = await connection.query("");
-        console.log(rows);
-        connection.end(); */
+        try {
+            const t = await sequelize.transaction();
+
+            const result = UserModel.findOne({ where: { name: 'Dragoon10101'} }).then(async user => {
+                await user.update({ name: 'Dragoon1010' });
+                await t.commit().then(() => {
+                    console.log('success');
+                });
+            })
+        } catch (error) {
+            console.log(error);
+        } */
 
         // register all commands
         const commandsDir = path.resolve(__dirname, '../..', 'commands');
