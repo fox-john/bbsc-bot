@@ -1,17 +1,34 @@
-import { DataTypes } from '@sequelize/core';
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from '@sequelize/core';
 import sequelize from '../utils/database';
 
-const PermissionModel = sequelize.define('permission', {
+class Permission extends Model<InferAttributes<Permission>, InferCreationAttributes<Permission>> {
+  declare id: number;
+  declare name: string;
+
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+}
+
+Permission.init({
   id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: true,
+    primaryKey: true
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
   }
-})
+}, { tableName: 'permission', sequelize })
 
-export { PermissionModel };
+
+export { Permission };

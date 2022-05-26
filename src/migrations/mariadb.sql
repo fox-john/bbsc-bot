@@ -1,5 +1,6 @@
 CREATE TABLE discord.users (
 	id INT NOT NULL AUTO_INCREMENT,
+	discordId VARCHAR(255) NOT NULL,
 	name VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id),
 	createdAt TIMESTAMP NOT NULL,
@@ -51,3 +52,5 @@ CREATE TABLE discord.groups_permissions (
   CONSTRAINT fk_groups_permissions_groupid FOREIGN KEY (groupid) REFERENCES groups(id),
   CONSTRAINT fk_groups_permissions_permissionid FOREIGN KEY (permissionid) REFERENCES permissions(id)
 );
+
+ALTER TABLE discord.users AUTO_INCREMENT = 1;

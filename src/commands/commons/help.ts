@@ -1,3 +1,4 @@
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { GuildEmoji, Message, User } from 'discord.js';
 import glob from 'glob';
 import * as path from 'path';
@@ -16,6 +17,7 @@ module.exports = {
     isVoiceCommand: false,
     args: false,
 
+
     execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
         let helpMessage = '';
@@ -24,7 +26,7 @@ module.exports = {
         // get all commands
         const commandsDir = path.resolve(__dirname, '../');
 
-        glob(`${commandsDir}/**/*.ts`, function(_error: Error, commandFiles: Array<string>) {
+        glob(`${commandsDir}/**/*.ts`, function (_error: Error, commandFiles: Array<string>) {
             commandFiles.forEach((file) => {
                 const command = require(file);
 

@@ -4,7 +4,7 @@ import { EmbedMessage } from './classes/discord/EmbedMessage';
 
 const bot = new Bot();
 
-process.on('uncaughtException',  (error: Error, _promise: Promise<any>) => {
+process.on('uncaughtException', (error: Error, _promise: Promise<any>) => {
     bot.bbscDiscord.channels.cache.get(process.env.BOT_ERROR_CHANNEL_ID).fetch().then((channel: TextChannel) => {
         const fields = [
             {

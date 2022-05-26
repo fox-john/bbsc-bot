@@ -5,7 +5,6 @@ import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
 import WebSocketServer from '../WebSocketServer';
-import { UserModel } from '../../models/user';
 import sequelize from '../../utils/database';
 
 dotenv.config()
@@ -15,7 +14,7 @@ export class Bot extends Client {
     public bbscDiscord: Guild;
     public currentVoiceConnection: VoiceConnection = null;
     public voiceConnectionDispatcher: StreamDispatcher = null;
-    public static amongUsGame: AmongUsGame|undefined;
+    public static amongUsGame: AmongUsGame | undefined;
 
     constructor() {
         super();
@@ -25,32 +24,18 @@ export class Bot extends Client {
         })
     }
 
-    async init (): Promise<void> {
-/*         await sequelize.authenticate()
+    async init(): Promise<void> {
+        await sequelize.authenticate()
             .then(() => {
                 console.log('Connection has been established successfully.');
             }).catch((error) => {
                 console.error('Unable to connect to the database:', error);
             });
 
-        try {
-            const t = await sequelize.transaction();
-
-            const result = UserModel.findOne({ where: { name: 'Dragoon10101'} }).then(async user => {
-                await user.update({ name: 'Dragoon1010' });
-                await t.commit().then(() => {
-                    console.log('success');
-                });
-            })
-        } catch (error) {
-            console.log(error);
-        } */
-
         // register all commands
         const commandsDir = path.resolve(__dirname, '../..', 'commands');
 
         this.bbscDiscord = await this.guilds.cache.get(process.env.BBSC_GUILD_ID).fetch();
-        this.bbscDiscord.members.fetch();
 
         glob(`${commandsDir}/**/*.ts`, (_error: Error, commandFiles: Array<string>) => {
             commandFiles.forEach((file) => {

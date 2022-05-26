@@ -1,24 +1,24 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from '@sequelize/core';
 import sequelize from '../utils/database';
 
-class Group extends Model<InferAttributes<Group>, InferCreationAttributes<Group>> {
-  declare id: number;
-  declare name: string;
+class UserGroup extends Model<InferAttributes<UserGroup>, InferCreationAttributes<UserGroup>> {
+  declare userId: number;
+  declare groupId: string;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-Group.init({
-  id: {
+UserGroup.init({
+  userId: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: true,
-    primaryKey: true
+    autoIncrement: false,
+    allowNull: false,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
+  groupId: {
+    type: DataTypes.INTEGER,
+    autoIncrement: false,
+    allowNull: false,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -28,7 +28,7 @@ Group.init({
     type: DataTypes.DATE,
     allowNull: true
   }
-}, { tableName: 'group', sequelize })
+}, { tableName: 'users_groups', sequelize })
 
 
-export { Group };
+export { UserGroup };

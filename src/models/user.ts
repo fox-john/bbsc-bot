@@ -1,22 +1,39 @@
-import { DataTypes, Model } from '@sequelize/core';
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from '@sequelize/core';
 import sequelize from '../utils/database';
 
-interface UserInstance extends Model {
-  id: number;
-  name: string;
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: number;
+  declare discordId: string;
+  declare name: string;
+
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }
 
-const UserModel = sequelize.define<UserInstance>('user', {
+User.init({
   id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: true,
+    primaryKey: true
+  },
+  discordId: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
   }
-})
+}, { tableName: 'users', sequelize })
 
-export { UserModel };
+
+export { User };
