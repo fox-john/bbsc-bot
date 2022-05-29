@@ -8,6 +8,7 @@ import WebSocketServer from '../WebSocketServer';
 import sequelize from '../../utils/database';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { createAudioPlayer } from '@discordjs/voice';
+import deployCommands from '../../utils/deploy-commands';
 
 dotenv.config()
 
@@ -50,12 +51,10 @@ export class Bot extends Client {
         glob(`${commandsDir}/**/*.ts`, (_error: Error, commandFiles: Array<string>) => {
             commandFiles.forEach((file) => {
                 const command = require(file);
-                this.commands.set(command.name, command);
-
-                new SlashCommandBuilder()
-                    .setName(command.name)
-                    .setDescription(command.description.title)
+                this.commands.set(command.infos.name, command);
             })
+
+            deployCommands();
 
             new WebSocketServer(this);
         });

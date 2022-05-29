@@ -9,7 +9,6 @@ module.exports = {
         if (member.user.bot) {
             member.roles.add(process.env.BOT_ROLE_ID);
         } else {
-            // member.roles.add(process.env.NEW_USER_ROLE_ID);
             UserService.addNewUserIntoDb(member);
         }
     }

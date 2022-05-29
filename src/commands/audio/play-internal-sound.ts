@@ -1,25 +1,21 @@
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { createAudioPlayer, createAudioResource, getVoiceConnection } from '@discordjs/voice';
 import fs from 'fs';
 import * as path from 'path';
 import { Bot } from '../../classes/discord/Bot';
-import UserLevel from '../../enums/UserLevel';
+
+const infos = new SlashCommandBuilder()
+    .setName('play-internal-sound')
+    .setDescription('play sound from server')
+    .addStringOption((option) => {
+        return option
+            .setName('filename')
+            .setDescription('filename you want to play')
+            .setRequired(true)
+    });
 
 module.exports = {
-    name: 'play-internal-sound',
-    commands: ['play-internal-sound'],
-    description: {
-        title: '[INTERNAL] Jouer un son local',
-        args: [
-            {
-                name: 'soundName',
-                required: true
-            }
-        ]
-    },
-    minLevel: UserLevel.INTERNAL,
-    isVoiceCommand: true,
-    args: false,
-
+    infos,
     async execute(bot: Bot, fileName: string) {
         if (fileName) {
             const connection = await getVoiceConnection(bot.bbscDiscord.id);
