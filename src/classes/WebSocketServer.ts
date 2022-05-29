@@ -22,9 +22,6 @@ export default class WebSocketServer extends SocketIO {
                 const event = require(`${webSocketEventsDir}/${file}`);
                 socket.on(event.name, event.execute.bind(null, bot, this));
             }
-            /* socket.onAny((eventName, args) => {
-                console.log(chalk.red(socket.id), chalk.blue(eventName, args));
-            }); */
         });
 
         super.listen(Number.parseInt(process.env.SOCKET_IO_PORT));

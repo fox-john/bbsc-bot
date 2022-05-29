@@ -1,3 +1,4 @@
+import { createAudioPlayer, createAudioResource, getVoiceConnection } from '@discordjs/voice';
 import fs from 'fs';
 import * as path from 'path';
 import { Bot } from '../../classes/discord/Bot';
@@ -21,12 +22,13 @@ module.exports = {
 
     async execute(bot: Bot, fileName: string) {
         if (fileName) {
-            if (bot.currentVoiceConnection) {
-                if (bot.voiceConnectionDispatcher !== null) {
-                    await bot.voiceConnectionDispatcher.end();
-                }
+            const connection = await getVoiceConnection(bot.bbscDiscord.id);
 
-                bot.voiceConnectionDispatcher = bot.currentVoiceConnection.play(fs.createReadStream(path.resolve(__dirname, '../../../static/audio', fileName)), { type: 'ogg/opus' });
+            if (connection) {
+                const ressource = createAudioResource(path.resolve(__dirname, '../../../static/audio', fileName));
+
+                connection.subscribe(bot.audioPlayer);
+                bot.audioPlayer.play(ressource);
             }
         }
     }

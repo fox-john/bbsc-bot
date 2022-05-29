@@ -3,7 +3,7 @@ import { Bot } from "../../classes/discord/Bot";
 import UserLevel from "../../enums/UserLevel";
 
 module.exports = {
-    name: 'message',
+    name: 'messageCreate',
 
     execute: (bot: Bot, message: Message) => {
         if (message.author.bot) return;
@@ -33,7 +33,7 @@ module.exports = {
                     }
                 }
 
-                if (command.isVoiceCommand && !message.member.voice.channelID) {
+                if (command.isVoiceCommand && !message.member.voice.channel.isVoice()) {
                     const emojiThink: GuildEmoji = bot.emojis.cache.find(emoji => emoji.name === 'think');
                     return message.reply(`Vous devez être connecté à un canal vocal pour utiliser cette commande ${emojiThink}`);
                 }

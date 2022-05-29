@@ -10,15 +10,15 @@ module.exports = {
         const member = newState.member;
 
         // AMONG US
-        if ((!oldState.channelID && newState.channelID) || (oldState.channelID && newState.channelID && oldState.channelID !== newState.channelID)) {
-            if (newState.channelID === process.env.AMONG_US_CHANNEL_ID && !newState.channel.members.has((process.env.BBSC_BOT_ID))) {
+        if ((!oldState.channelId && newState.channelId) || (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId)) {
+            if (newState.channelId === process.env.AMONG_US_CHANNEL_ID && !newState.channel.members.has((process.env.BBSC_BOT_ID))) {
                 bot.commands.get('join').execute(bot);
             }
 
-            if (oldState.channelID && newState.channelID && oldState.channelID !== newState.channelID && oldState.channel.members.array().length === 1 && oldState.channel.members.has(process.env.BBSC_BOT_ID)) {
+            if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId && oldState.channel.members.values.length === 1 && oldState.channel.members.has(process.env.BBSC_BOT_ID)) {
                 bot.commands.get('stop').execute(bot);
             }
-        } else if (oldState.channel.members.array().length === 1 && oldState.channel.members.has(process.env.BBSC_BOT_ID)) {
+        } else if (oldState.channel.members.values.length === 1 && oldState.channel.members.has(process.env.BBSC_BOT_ID)) {
             bot.commands.get('stop').execute(bot);
         }
     }

@@ -1,10 +1,10 @@
-import { GuildMember, Message, VoiceChannel } from 'discord.js';
+import { GuildMember, Message, VoiceBasedChannel } from 'discord.js';
 import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
 
 module.exports = {
-    name: 'mute-channel',
-    commands: ['mute', 'mute-users', 'mute-channel', 'mc'],
+    name: 'mute-all',
+    commands: ['mute-all', 'mute', 'mute-users', 'mute-channel', 'mc'],
     description: {
         title: 'Muter tous les utilisateurs du salon vocal en cours',
         args: []
@@ -14,7 +14,7 @@ module.exports = {
     args: false,
 
     async execute(bot: Bot, messageSended: Message) {
-        const currentChannel: VoiceChannel = messageSended.member.voice.channel;
+        const currentChannel: VoiceBasedChannel = messageSended.member.voice.channel;
         const membersList = await currentChannel.members;
 
         bot.commands.get('play-internal-sound').execute(bot, 'mute.ogg');

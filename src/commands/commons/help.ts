@@ -17,7 +17,6 @@ module.exports = {
     isVoiceCommand: false,
     args: false,
 
-
     execute(bot: Bot, messageSended: Message) {
         const user: User = messageSended.author;
         let helpMessage = '';
@@ -76,7 +75,7 @@ module.exports = {
             } else {
                 helpMessage += 'Aucune commandes existante pour ce rôle';
             }
-            console.log(helpMessage);
+
             helpMessage = helpMessage.slice(0, -2);
 
             const embedMessage: EmbedMessage = new EmbedMessage({

@@ -1,3 +1,4 @@
+import { getVoiceConnection } from '@discordjs/voice';
 import { Bot } from '../../classes/discord/Bot';
 import UserLevel from '../../enums/UserLevel';
 
@@ -12,14 +13,11 @@ module.exports = {
     isVoiceCommand: true,
     args: true,
 
-    execute(bot: Bot) {
-        if (bot.voiceConnectionDispatcher !== null) {
-            bot.voiceConnectionDispatcher.destroy();
-        }
+    async execute(bot: Bot) {
+        const connection = await getVoiceConnection(bot.bbscDiscord.id);
 
-        if (bot.currentVoiceConnection !== null) {
-            bot.currentVoiceConnection.channel.leave();
-            bot.currentVoiceConnection = null;
+        if (connection) {
+            await connection.destroy();
         }
     },
 };
