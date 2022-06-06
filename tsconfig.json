@@ -1,14 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
+    "target": "ESNext",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2018",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "sourceMap": false,
     "types": [
       // add node as an option
       "node"

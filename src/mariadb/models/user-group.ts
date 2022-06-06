@@ -1,5 +1,5 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from '@sequelize/core';
-import sequelize from '@mariadb/database';
+import sequelize from '@mariadb/index';
 
 class UserGroup extends Model<InferAttributes<UserGroup>, InferCreationAttributes<UserGroup>> {
   declare userId: number;

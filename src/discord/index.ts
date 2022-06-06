@@ -1,10 +1,11 @@
 import 'module-alias/register';
-import { Channel, EmbedFieldData, TextChannel } from 'discord.js';
+import { EmbedFieldData, TextChannel } from 'discord.js';
 import { Bot } from './classes/discord/Bot';
 import { EmbedMessage } from './classes/discord/EmbedMessage';
 
 const bot = new Bot();
 
+console.log('running discord');
 process.on('uncaughtException', (error: Error, _promise: Promise<any>) => {
     const channel: TextChannel = bot.bbscDiscord.channels.cache.get(process.env.BOT_ERROR_CHANNEL_ID) as TextChannel;
 

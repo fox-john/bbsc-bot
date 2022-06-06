@@ -1,5 +1,5 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from '@sequelize/core';
-import sequelize from '@mariadb/database';
+import sequelize from '@mariadb/index';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: number;

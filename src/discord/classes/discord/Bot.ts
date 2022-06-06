@@ -5,9 +5,9 @@ import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
 import WebSocketServer from '../WebSocketServer';
-import sequelize from '@mariadb/database';
 import { createAudioPlayer } from '@discordjs/voice';
 import deployCommands from '../../utils/deploy-commands';
+import sequelize from '@mariadb/index';
 
 dotenv.config()
 
@@ -34,7 +34,7 @@ export class Bot extends Client {
     }
 
     async init(): Promise<void> {
-        await sequelize.authenticate()
+        sequelize.authenticate()
             .then(() => {
                 console.log('Connection has been established successfully.');
             }).catch((error) => {
