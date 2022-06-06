@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { GuildMember, Interaction, VoiceBasedChannel } from 'discord.js';
-import { Bot } from '../../classes/discord/Bot';
-import { UserService } from '../../services/User.service';
+import { GuildMember, Interaction } from 'discord.js';
+import { Bot } from '@discord/classes/discord/Bot';
+import { UserService } from '@mariadb/services/User.service';
 
 const infos = new SlashCommandBuilder()
     .setName('regenerate-user-list')

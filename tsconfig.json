@@ -1,31 +1,48 @@
 {
-    "compilerOptions": {
-      "outDir": "./build",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "target": "es2016",
-      "lib": [
-        "es6",
-        "dom"
+  "compilerOptions": {
+    "outDir": "./build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2018",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "sourceMap": false,
+    "types": [
+      // add node as an option
+      "node"
+    ],
+    "typeRoots": [
+      // add path to @types
+      "@types/node",
+      "node_modules/@types",
+      "node_modules/discord.js",
+      "node_modules/@typescript-eslint",
+      "node_modules/@typeit/discord",
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "watch": false,
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@discord/*": [
+        "discord/*"
       ],
-      "sourceMap": false,
-      "types": [
-        // add node as an option
-        "node"
+      "@mariadb/*": [
+        "mariadb/*"
       ],
-      "typeRoots": [
-        // add path to @types
-        "@types/node",
-        "node_modules/@types",
-        "node_modules/@typescript-eslint",
-        "node_modules/@typeit/discord",
-      ],
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "resolveJsonModule": true,
-      "watch": false,
-      "esModuleInterop": true
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
-  }
+      "@api/*": [
+        "api/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

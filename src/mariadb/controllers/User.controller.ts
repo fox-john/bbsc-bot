@@ -1,7 +1,7 @@
-import { User } from '../models';
+import { User } from '@mariadb/models';
 
 export default class UserController {
-  createOneUser = async (user: User): Promise<User|Error>  => {
+  createOneUser = async (user: User): Promise<User | Error> => {
     const result = await this.findOneUserByDiscordId(user.discordId);
 
     if (result) return new Error('User already exist !');

@@ -1,7 +1,7 @@
-import { UserGroup } from '../models';
+import { UserGroup } from '@mariadb/models';
 
 export default class UserGroupController {
-  addGroupAtUser = async (userGroup: UserGroup): Promise<UserGroup|Error>  => {
+  addGroupAtUser = async (userGroup: UserGroup): Promise<UserGroup | Error> => {
     const userAlreadyExistInGroup = this.findUserGroupAlreadyExist(userGroup);
     // const groupExist = GroupController.findOne({ where: { groupId, userId } });
 

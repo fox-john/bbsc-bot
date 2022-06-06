@@ -1,5 +1,5 @@
 import { Collection, GuildMember, Snowflake } from "discord.js";
-import UserController from "../controllers/User.controller";
+import UserController from "@mariadb/controllers/User.controller";
 import { User } from "../models";
 
 export class UserService {

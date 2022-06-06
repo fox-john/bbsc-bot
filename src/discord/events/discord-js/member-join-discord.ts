@@ -1,6 +1,6 @@
 import { GuildMember } from "discord.js";
 import { Bot } from "../../classes/discord/Bot";
-import { UserService } from "../../services/User.service";
+import { UserService } from "@mariadb/services/User.service";
 
 module.exports = {
     name: 'guildMemberAdd',

@@ -1,8 +1,7 @@
-import { Group } from '../models';
-import { UsersGroups } from '../models/user-group';
+import { Group } from '@mariadb/models';
 
 export default class GroupController {
-  createOneGroup = async (group: Group): Promise<Group|Error>  => {
+  createOneGroup = async (group: Group): Promise<Group | Error> => {
     const result = await this.findOneGroupByName(group.name);
 
     if (result) return new Error('Group already exist !');
@@ -13,7 +12,7 @@ export default class GroupController {
     return Group.findOne({ where: { name: groupName } });
   };
 
-  updateGroupByName= async (groupId: string, group: Group): Promise<Group> => {
+  updateGroupByName = async (groupId: string, group: Group): Promise<Group> => {
     const result = await this.findOneGroupByName(groupId);
 
     if (!result) return Promise.reject(Error('Group not found !'));

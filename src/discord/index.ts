@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import { Channel, EmbedFieldData, TextChannel } from 'discord.js';
 import { Bot } from './classes/discord/Bot';
 import { EmbedMessage } from './classes/discord/EmbedMessage';

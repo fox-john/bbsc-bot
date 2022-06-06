@@ -5,8 +5,7 @@ import glob from 'glob';
 import * as path from 'path';
 import AmongUsGame from '../among-us/AmongUsGame';
 import WebSocketServer from '../WebSocketServer';
-import sequelize from '../../utils/database';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import sequelize from '@mariadb/database';
 import { createAudioPlayer } from '@discordjs/voice';
 import deployCommands from '../../utils/deploy-commands';
 
